@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --- Base --- */
+
+@layer base {
+  body {
+    @apply bg-neutral-50 font-roboto text-base text-brand-dark font-normal;
+  }
+}
+
+/* --- Utilities --- */
+
+@layer utilities {
+  .container {
+    @apply max-w-[1720px] w-full px-5 mx-auto;
+  }
+}
+
+aside a.active {
+  @apply !bg-blue-50;
+}
