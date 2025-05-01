@@ -20,7 +20,7 @@ const ChatsList = () => {
     let loadingTime = 0;
     setTimeout(() => (loadingTime = 1), 200);
 
-    await fetch(`${apiBaseUrl }/api/chats`)
+    await fetch(`${apiBaseUrl}/api/chats`)
       .then((response) => response.json())
       .then((data) => data && setChats(data))
       .finally(() => {
@@ -68,6 +68,7 @@ const ChatsList = () => {
       unansweredMessagesCount,
       user: { firstName, photo },
     } = chat;
+
     return (
       <li key={id}>
         <NavLink
@@ -80,7 +81,7 @@ const ChatsList = () => {
               width={48}
               height={48}
               alt="User avatar"
-              src={`${apiBaseUrl}${photo}`}
+              src={`${photo.url}`}
               className="bg-neutral-50 size-12 rounded-full object-cover"
             />
           ) : (

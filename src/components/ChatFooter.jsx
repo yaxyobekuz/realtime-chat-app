@@ -1,12 +1,18 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
 
 const ChatFooter = ({ sendMessage }) => {
   const inputRef = useRef();
+  const { chatId } = useParams();
 
   const handleClick = () => {
     if (!inputRef?.current) return;
     inputRef.current.focus();
   };
+
+  useEffect(() => {
+    handleClick();
+  }, [chatId]);
 
   return (
     <div className="flex items-center justify-center w-full h-[81px] px-4">

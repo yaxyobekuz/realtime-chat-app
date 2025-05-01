@@ -12,7 +12,7 @@ const MainLayout = () => {
     <div className="container">
       <div className="flex bg-white border-x h-screen">
         {/* Sidebar (Chats) */}
-        <aside className="shrink-0 w-96 h-full border-r">
+        <aside className="shrink-0 w-[440px] h-full border-r">
           <SidebarHeader />
 
           {/* Chats List */}
@@ -26,11 +26,9 @@ const MainLayout = () => {
         </aside>
 
         {/* Messages */}
-        <main className="size-full">
-          <Dot className="size-full">
-            <Outlet />
-          </Dot>
-        </main>
+        <Dot className="size-full">
+          <Outlet />
+        </Dot>
       </div>
     </div>
   );
