@@ -15,9 +15,12 @@ import ChatFooter from "../components/ChatFooter";
 
 const Chat = () => {
   const { chatId } = useParams();
+  const [chat, setChat] = useState({});
   const [messages, setMessages] = useState([]);
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const { user } = chat || {};
 
   const fetchMessages = async () => {
     setHasError(false);
@@ -25,9 +28,13 @@ const Chat = () => {
 
     await fetch(`${apiBaseUrl}/api/chats/chat/${chatId}/messages`)
       .then((response) => response.json())
-      .then((res) => {
-        const { messages } = res || {};
-        messages && setMessages(messages);
+      .then((chat) => {
+        if (chat) {
+          setChat(chat);
+          setMessages(chat.messages);
+        } else {
+          throw new Error();
+        }
       })
       .catch(() => setHasError(true))
       .finally(() => setIsLoading(false));
@@ -48,25 +55,33 @@ const Chat = () => {
 
     if (text?.length === 0 || !text?.length || isLoading) return;
 
-    socket.emit(`sendMessage`, { text, chatId });
+    socket.emit(`sendMessage`, { text, chatId }, (res) => {
+      console.log(res);
+    });
 
     input.value = "";
   };
 
   if (hasError) {
-    return;
+    return "Error";
   }
 
   return (
-    <div className="size-full">
-      {/* Header */}
-      <ChatHeader />
-
+    <div className="flex size-full">
       {/* Body */}
-      <ChatBody messages={messages} />
+      <div className="size-full">
+        {/* Header */}
+        <ChatHeader title={user?.firstName} />
 
-      {/* Footer */}
-      <ChatFooter sendMessage={sendMessage} isLoading={isLoading} />
+        {/* Body */}
+        <ChatBody messages={messages} />
+
+        {/* Footer */}
+        <ChatFooter sendMessage={sendMessage} isLoading={isLoading} />
+      </div>
+
+      {/* Details */}
+      <div className="shrink-0 w-[440px] h-full border-l bg-white"></div>
     </div>
   );
 };

@@ -18,20 +18,27 @@ const ChatBody = ({ messages = [] }) => {
     >
       <div className="max-w-2xl mx-auto">
         <ul className="flex flex-col gap-2">
-          {messages.map(({ isAdmin, text }, i) => {
-            return isAdmin ? (
+          {messages.map(({ isAdmin, text, _id: id, type, photo }, index) => {
+            return (
               <li
-                key={i}
-                className="inline-block ml-auto border bg-neutral-50 py-1 px-3.5 rounded-full shadow shadow-neutral-200/70"
+                id={id}
+                key={index}
+                className={`${
+                  isAdmin ? "bg-neutral-50 ml-auto" : "bg-white mr-auto"
+                } inline-block max-w-[calc(100%-80px)] border p-2 rounded-[20px] leading-[14px] shadow shadow-neutral-200/70`}
               >
-                {text}
-              </li>
-            ) : (
-              <li
-                key={i}
-                className="inline-block border bg-white mr-auto py-1 px-3.5 rounded-full shadow shadow-neutral-200/70"
-              >
-                {text}
+                {/* Text */}
+                {type === "text" && text}
+
+                {/* Photo */}
+                {type === "photo" && (
+                  <img
+                    width={288}
+                    height={288}
+                    src={photo.url}
+                    className="size-72 bg-neutral-50 object-cover rounded-xl"
+                  />
+                )}
               </li>
             );
           })}
