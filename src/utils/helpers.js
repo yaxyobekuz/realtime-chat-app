@@ -1,5 +1,5 @@
 // Format date
-export const formatDate = (input) => {
+const formatDate = (input) => {
   if (!input) return null;
 
   const date = new Date(input);
@@ -12,7 +12,7 @@ export const formatDate = (input) => {
 };
 
 // Format time
-export const formatTime = (input) => {
+const formatTime = (input) => {
   if (!input) return null;
 
   const date = new Date(input);
@@ -22,3 +22,39 @@ export const formatTime = (input) => {
 
   return `${hours}:${minutes}`;
 };
+
+const getBubbleBorderRadius = (isAdmin, isLast, isFirst, isPrev, isNext) => {
+  let borderRadius = { sm: "rounded-xl ", md: "rounded-[21px] " };
+
+  // Admin
+  if (isAdmin) {
+    if (isPrev && isNext) {
+      borderRadius.md += "rounded-r-lg";
+      borderRadius.sm += "rounded-r";
+    } else if (isPrev && !isNext) {
+      borderRadius.md += "rounded-tr-lg";
+      borderRadius.sm += "rounded-tr";
+    } else if (!isPrev && isNext) {
+      borderRadius.md += "rounded-br-lg";
+      borderRadius.sm += "rounded-br";
+    }
+  }
+
+  // User
+  else {
+    if (!isPrev && !isNext && !isLast) {
+      borderRadius.md += "rounded-l-lg";
+      borderRadius.sm += "rounded-l";
+    } else if (!isPrev && !isFirst) {
+      borderRadius.md += "rounded-tl-lg";
+      borderRadius.sm += "rounded-tl";
+    } else if (!isNext && !isLast) {
+      borderRadius.md += "rounded-bl-lg";
+      borderRadius.sm += "rounded-bl";
+    }
+  }
+
+  return borderRadius;
+};
+
+export { getBubbleBorderRadius, formatTime, formatDate };
