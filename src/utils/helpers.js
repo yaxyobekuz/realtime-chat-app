@@ -42,7 +42,7 @@ const getBubbleBorderRadius = (isAdmin, isLast, isFirst, isPrev, isNext) => {
 
   // User
   else {
-    if (!isPrev && !isNext && !isLast) {
+    if (!isPrev && !isNext && !isLast && !isFirst) {
       borderRadius.md += "rounded-l-lg";
       borderRadius.sm += "rounded-l";
     } else if (!isPrev && !isFirst) {
