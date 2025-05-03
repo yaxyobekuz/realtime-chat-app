@@ -15,10 +15,10 @@ const ChatFooter = ({ sendMessage }) => {
   }, [chatId]);
 
   return (
-    <div className="flex items-center justify-center w-full h-[81px] px-4">
+    <div className="flex items-center justify-center w-full h-[81px] bg-white border-t px-4">
       <form
         onSubmit={sendMessage}
-        className="flex items-center justify-center gap-4 max-w-2xl w-full"
+        className="flex items-center justify-center gap-4 w-full"
       >
         {/* Message Input */}
         <input
