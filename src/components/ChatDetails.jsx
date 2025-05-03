@@ -12,7 +12,7 @@ const ChatDetails = ({
   const { photo, firstName, username, phone } = user || {};
 
   return (
-    <section className="shrink-0 w-[440px] h-full border-l bg-white">
+    <section className="shrink-0 w-[440px] max-h-full overflow-y-auto hidden-scroll border-l bg-white">
       {/* Header */}
       <div className="flex items-center px-4 h-16">
         <h2 className="text-xl font-medium">Chat ma'lumotlari</h2>
@@ -110,7 +110,7 @@ const ChatDetails = ({
         {/* Write as telegram */}
         <a
           target="_blank"
-          href={username ? `https://t.me/${username}` : false}
+          href={username ? `https://t.me/${username}` : "false"}
           className="flex items-center gap-3.5 h-12 px-4 transition-colors duration-300 hover:bg-neutral-50"
         >
           <svg
@@ -133,7 +133,7 @@ const ChatDetails = ({
 
         {/* phone number */}
         <a
-          href={phone ? `tel:+${phone}` : false}
+          href={phone ? `tel:+${phone}` : "false"}
           className="flex items-center gap-3.5 h-12 px-4 transition-colors duration-300 hover:bg-neutral-50"
         >
           <svg

@@ -2,8 +2,8 @@ import React from "react";
 
 const ChatHeader = ({ title = "", avatar = "", placeholder = "" }) => {
   return (
-    <header className="bg-white p-4 border-b">
-      <div className="flex items-center justify-between">
+    <header className="bg-white px-4 border-b h-16">
+      <div className="flex items-center justify-between h-full">
         {/* Profile */}
         <div className="flex items-center gap-3">
           {/* Avatar */}

@@ -12,7 +12,7 @@ const MainLayout = () => {
     <div className="container">
       <div className="flex bg-white border-x h-screen">
         {/* Sidebar (Chats) */}
-        <aside className="shrink-0 w-[440px] h-full border-r">
+        <aside className="shrink-0 w-[440px] max-h-full overflow-y-auto hidden-scroll border-r">
           <SidebarHeader />
 
           {/* Chats List */}

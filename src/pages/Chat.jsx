@@ -12,6 +12,7 @@ const socket = io(apiBaseUrl);
 import ChatBody from "../components/ChatBody";
 import ChatHeader from "../components/ChatHeader";
 import ChatFooter from "../components/ChatFooter";
+import ChatDetails from "../components/ChatDetails";
 
 const Chat = () => {
   const { chatId } = useParams();
@@ -50,7 +51,7 @@ const Chat = () => {
 
   const sendMessage = async (e) => {
     e.preventDefault();
-    const input = e.target.querySelector("input");
+    const input = e.target.querySelector("input[type='text']");
     const text = input.value?.trim() || "";
 
     if (text?.length === 0 || !text?.length || isLoading) return;
@@ -81,7 +82,7 @@ const Chat = () => {
       </div>
 
       {/* Details */}
-      <div className="shrink-0 w-[440px] h-full border-l bg-white"></div>
+      <ChatDetails {...chat} />
     </div>
   );
 };
