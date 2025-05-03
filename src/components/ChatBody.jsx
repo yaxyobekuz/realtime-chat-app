@@ -1,49 +1,51 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
+
+// Components
+import TextMessageItem from "./TextMessageItem";
+import PhotoMessageItem from "./PhotoMessageItem";
 
 const ChatBody = ({ messages = [] }) => {
-  const scrollContainerRef = React.useRef(null);
+  const chatContainerRef = useRef(null);
 
+  // Scroll to the bottom when messages update
   useEffect(() => {
-    // Scroll to bottom
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollTop =
-        scrollContainerRef.current.scrollHeight;
+    const container = chatContainerRef.current;
+    if (container) {
+      container.scrollTop = container.scrollHeight;
     }
   }, [messages]);
 
   return (
     <div
-      ref={scrollContainerRef}
-      className="max-h-[calc(100%-162px)] h-full overflow-y-auto p-4"
+      ref={chatContainerRef}
+      className="max-h-[calc(100%-162px)] h-full overflow-y-auto hidden-scroll p-4"
     >
-      <div className="max-w-2xl mx-auto">
-        <ul className="flex flex-col gap-2">
-          {messages.map(({ isAdmin, text, _id: id, type, photo }, index) => {
-            return (
-              <li
-                id={id}
-                key={index}
-                className={`${
-                  isAdmin ? "bg-neutral-50 ml-auto" : "bg-white mr-auto"
-                } inline-block max-w-[calc(100%-80px)] border p-2 rounded-[20px] leading-[14px] shadow shadow-neutral-200/70`}
-              >
-                {/* Text */}
-                {type === "text" && text}
+      <ul className="flex flex-col gap-2">
+        {messages.map((msg, i) => {
+          const isFirst = i === 0;
+          const isLast = i === messages.length - 1;
+          const prevIsAdmin = messages[i - 1]?.isAdmin;
+          const nextIsAdmin = messages[i + 1]?.isAdmin;
 
-                {/* Photo */}
-                {type === "photo" && (
-                  <img
-                    width={288}
-                    height={288}
-                    src={photo.url}
-                    className="size-72 bg-neutral-50 object-cover rounded-xl"
-                  />
-                )}
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+          const sharedProps = {
+            ...msg,
+            isLastMessage: isLast,
+            isFirstMessage: isFirst,
+            prevIsAdminMessage: prevIsAdmin,
+            nextIsAdminMessage: nextIsAdmin,
+          };
+
+          if (msg.type === "text") {
+            return <TextMessageItem key={i} {...sharedProps} />;
+          }
+
+          if (msg.type === "photo") {
+            return <PhotoMessageItem key={i} {...sharedProps} />;
+          }
+
+          return null;
+        })}
+      </ul>
     </div>
   );
 };
