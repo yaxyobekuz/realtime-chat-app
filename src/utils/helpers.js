@@ -23,6 +23,7 @@ const formatTime = (input) => {
   return `${hours}:${minutes}`;
 };
 
+// Get message bubble border radius
 const getBubbleBorderRadius = (isAdmin, isLast, isFirst, isPrev, isNext) => {
   let borderRadius = { sm: "rounded-xl ", md: "rounded-[21px] " };
 
@@ -57,4 +58,17 @@ const getBubbleBorderRadius = (isAdmin, isLast, isFirst, isPrev, isNext) => {
   return borderRadius;
 };
 
-export { getBubbleBorderRadius, formatTime, formatDate };
+// Format api request's error message
+const formatErrorMessage = (error) => {
+  const formattedError = { ok: false, message: null };
+
+  if (error.response && error.response.data.message) {
+    formattedError.message = error.response.data.message;
+  } else {
+    formattedError.message = "Noma'lum xatolik yuz berdi";
+  }
+
+  return formattedError;
+};
+
+export { getBubbleBorderRadius, formatTime, formatDate, formatErrorMessage };
