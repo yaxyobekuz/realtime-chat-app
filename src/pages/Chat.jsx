@@ -1,5 +1,5 @@
+import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
-import React, { useEffect, useState } from "react";
 
 // Config
 import { apiBaseUrl } from "../config";
@@ -8,11 +8,17 @@ import { apiBaseUrl } from "../config";
 import { io } from "socket.io-client";
 const socket = io(apiBaseUrl);
 
+// Notification
+import { toast } from "@/notification/toast";
+
 // Components
 import ChatBody from "../components/ChatBody";
 import ChatHeader from "../components/ChatHeader";
 import ChatFooter from "../components/ChatFooter";
 import ChatDetails from "../components/ChatDetails";
+
+// Services
+import chatService from "@/api/services/chatService";
 
 const Chat = () => {
   const { chatId } = useParams();
@@ -23,63 +29,67 @@ const Chat = () => {
 
   const { user } = chat || {};
 
-  const fetchMessages = async () => {
+  const loadMessages = useCallback(async () => {
     setHasError(false);
     setIsLoading(true);
 
-    await fetch(`${apiBaseUrl}/api/chats/chat/${chatId}/messages`)
-      .then((response) => response.json())
-      .then((chat) => {
-        if (chat) {
-          setChat(chat);
-          setMessages(chat.messages);
-        } else {
-          throw new Error();
-        }
-      })
-      .catch(() => setHasError(true))
-      .finally(() => setIsLoading(false));
+    const res = await chatService.getChatMessages(chatId);
 
-    socket.on(`chatMessage:${chatId}`, (data) => {
-      setMessages((prev) => [...prev, data]);
-    });
-  };
+    if (res.ok) {
+      const { messages, ...chatData } = res.data;
+      setChat(chatData);
+      setMessages(messages);
+    } else {
+      setHasError(true);
+      toast.error(res.message);
+    }
 
-  useEffect(() => {
-    fetchMessages();
+    setIsLoading(false);
   }, [chatId]);
 
-  const sendMessage = async (e) => {
-    e.preventDefault();
-    const input = e.target.querySelector("input[type='text']");
-    const text = input.value?.trim() || "";
+  useEffect(() => {
+    loadMessages();
 
-    if (text?.length === 0 || !text?.length || isLoading) return;
+    const handleNewMessage = (data) => {
+      setMessages((prev) => [...prev, data]);
+    };
 
-    socket.emit(`sendMessage`, { text, chatId }, (res) => {
-      console.log(res);
-    });
+    socket.on(`chatMessage:${chatId}`, handleNewMessage);
 
-    input.value = "";
-  };
+    return () => {
+      socket.off(`chatMessage:${chatId}`, handleNewMessage);
+    };
+  }, [chatId, loadMessages]);
+
+  const sendMessage = useCallback(
+    (e) => {
+      e.preventDefault();
+      const input = e.target.querySelector("input[type='text']");
+      const text = input.value?.trim();
+
+      if (!text || isLoading) return;
+
+      socket.emit("sendMessage", { text, chatId }, (res) => {
+        console.log(res);
+      });
+
+      input.value = "";
+    },
+    [chatId, isLoading]
+  );
 
   if (hasError) return "Error";
 
   return (
     <div className="flex size-full">
-      {/* Body */}
+      {/* Chat Area */}
       <div className="max-w-[calc(100%-440px)] size-full">
-        {/* Header */}
         <ChatHeader title={user?.firstName} />
-
-        {/* Body */}
         <ChatBody messages={messages} />
-
-        {/* Footer */}
         <ChatFooter sendMessage={sendMessage} isLoading={isLoading} />
       </div>
 
-      {/* Details */}
+      {/* Chat Details */}
       <ChatDetails {...chat} />
     </div>
   );
