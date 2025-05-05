@@ -26,7 +26,7 @@ const MainLayout = () => {
         </aside>
 
         {/* Messages */}
-        <Dot className="size-full">
+        <Dot className="max-w-[calc(100%-440px)] w-full">
           <Outlet />
         </Dot>
       </div>

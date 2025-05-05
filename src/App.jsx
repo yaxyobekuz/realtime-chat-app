@@ -10,10 +10,10 @@ import {
 
 // Pages
 import Chat from "./pages/Chat";
+import Home from "./pages/Home";
 
 // Layouts
 import MainLayout from "./layouts/MainLayout";
-import Home from "./pages/Home";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -22,10 +22,13 @@ const App = () => {
         <Route path="chat/:chatId" element={<Chat />} />
         <Route index element={<Home />} />
       </Route>
-    )
+    ),
+    { future: { v7_relativeSplatPath: true } }
   );
 
-  return <RouterProvider router={router} />;
+  return (
+    <RouterProvider future={{ v7_startTransition: true }} router={router} />
+  );
 };
 
 export default App;

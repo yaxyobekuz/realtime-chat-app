@@ -20,11 +20,12 @@ const TextMessageItem = ({
   return (
     <li
       id={id}
+      dir="auto"
       className={`${
         isAdmin ? "bg-yellow-100 border-yellow-300 ml-auto" : "bg-white mr-auto"
       } ${bubbleBorderRadius} inline-block max-w-[calc(100%-96px)] border px-3 py-2.5 leading-5 shadow shadow-neutral-200/70`}
     >
-      <span>{text}</span>
+      <span className="break-words">{text}</span>
     </li>
   );
 };

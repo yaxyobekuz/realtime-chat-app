@@ -18,7 +18,7 @@ const ChatBody = ({ messages = [] }) => {
   return (
     <div
       ref={chatContainerRef}
-      className="max-h-[calc(100%-128px)] h-full overflow-y-auto hidden-scroll scroll-pt-2 p-4"
+      className="max-h-[calc(100%-128px)] size-full overflow-y-auto hidden-scroll scroll-pt-2 p-4"
     >
       <ul className="flex flex-col gap-2">
         {messages.map((msg, i) => {

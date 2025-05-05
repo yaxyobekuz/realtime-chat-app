@@ -70,7 +70,7 @@ const Chat = () => {
   return (
     <div className="flex size-full">
       {/* Body */}
-      <div className="size-full">
+      <div className="max-w-[calc(100%-440px)] size-full">
         {/* Header */}
         <ChatHeader title={user?.firstName} />
 
