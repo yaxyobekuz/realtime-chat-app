@@ -1,40 +1,50 @@
-import { NavLink, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { apiBaseUrl } from "../config";
+import { NavLink, useParams } from "react-router-dom";
+
+// Socket
 import { io } from "socket.io-client";
+
+// Api base url
+import { apiBaseUrl } from "../config";
+
+// Notification
+import { toast } from "@/notification/toast";
+
+// Helpers
 import { formatTime } from "../utils/helpers";
 
+// Services
+import chatService from "@/api/services/chatService";
+
+// Whistle notification sound for notification 🗿
 import whistleAudio from "../assets/sounds/whistle.mp3";
 
-const socket = io(apiBaseUrl);
-
 const ChatsList = () => {
+  const socket = io(apiBaseUrl);
   const [chats, setChats] = useState([]);
-  const { chatId: currentChatId } = useParams();
+  const { chatId: currentChatId } = useParams();  
   const [isLoading, setIsLoading] = useState(true);
   const [whistle] = useState(new Audio(whistleAudio));
 
   useEffect(() => {
     let timeoutId;
 
-    const fetchChats = async () => {
+    const loadChats = async () => {
       setIsLoading(true);
 
-      timeoutId = setTimeout(() => setIsLoading(true), 200); // small delay for loading animation
+      // Small delay for loading animation
+      timeoutId = setTimeout(() => setIsLoading(true), 200);
 
-      try {
-        const res = await fetch(`${apiBaseUrl}/api/chats`);
-        const data = await res.json();
-        if (data) setChats(data);
-      } catch (err) {
-        console.error("Error fetching chats:", err);
-      } finally {
-        clearTimeout(timeoutId);
-        setTimeout(() => setIsLoading(false), 300);
-      }
+      const res = await chatService.getChats();
+
+      if (res.ok) setChats(res.data);
+      else toast.error(res.message);
+
+      clearTimeout(timeoutId);
+      setTimeout(() => setIsLoading(false), 300);
     };
 
-    fetchChats();
+    loadChats();
 
     const handleReceiveChat = (newChat) => {
       setChats((prev) => [...prev, newChat]);
