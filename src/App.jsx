@@ -17,13 +17,17 @@ import { Toaster } from "react-hot-toast";
 
 // Layouts
 import MainLayout from "./layouts/MainLayout";
+import ChatLayout from "./layouts/ChatLayout";
 
 const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<MainLayout />}>
-        <Route path="chat/:chatId" element={<Chat />} />
         <Route index element={<Home />} />
+
+        <Route path="chats/" element={<ChatLayout />}>
+          <Route path="chat/:chatId" element={<Chat />} />
+        </Route>
       </Route>
     ),
     { future: { v7_relativeSplatPath: true } }
