@@ -14,14 +14,14 @@ const ChatDetails = ({
   return (
     <section className="shrink-0 w-[440px] max-h-full overflow-y-auto hidden-scroll border-l bg-white">
       {/* Header */}
-      <div className="flex items-center px-4 h-16">
+      <div className="flex items-center px-5 h-16">
         <h2 className="text-xl font-medium">Chat ma'lumotlari</h2>
       </div>
 
       <Hr />
 
       {/* User profile */}
-      <div className="flex items-center gap-4 p-4">
+      <div className="flex items-center gap-4 px-4 py-4">
         {photo ? (
           <img
             width={80}
@@ -64,7 +64,7 @@ const ChatDetails = ({
         {/* Passport */}
         <a
           href={`${pathname}#${passport}`}
-          className="flex items-center gap-3.5 h-12 px-4 transition-colors duration-300 hover:bg-neutral-50"
+          className="flex items-center gap-4 h-12 px-5 transition-colors duration-300 hover:bg-neutral-50"
         >
           <svg
             fill="none"
@@ -87,7 +87,7 @@ const ChatDetails = ({
         {/* Payment */}
         <a
           href={`${pathname}#${passport}`}
-          className="flex items-center gap-3.5 h-12 px-4 transition-colors duration-300 hover:bg-neutral-50"
+          className="flex items-center gap-4 h-12 px-5 transition-colors duration-300 hover:bg-neutral-50"
         >
           <svg
             fill="none"
@@ -111,7 +111,7 @@ const ChatDetails = ({
         <a
           target="_blank"
           href={username ? `https://t.me/${username}` : "false"}
-          className="flex items-center gap-3.5 h-12 px-4 transition-colors duration-300 hover:bg-neutral-50"
+          className="flex items-center gap-4 h-12 px-5 transition-colors duration-300 hover:bg-neutral-50"
         >
           <svg
             fill="none"
@@ -134,7 +134,7 @@ const ChatDetails = ({
         {/* phone number */}
         <a
           href={phone ? `tel:+${phone}` : "false"}
-          className="flex items-center gap-3.5 h-12 px-4 transition-colors duration-300 hover:bg-neutral-50"
+          className="flex items-center gap-4 h-12 px-5 transition-colors duration-300 hover:bg-neutral-50"
         >
           <svg
             fill="none"
@@ -160,7 +160,7 @@ const ChatDetails = ({
       {/* Actions */}
       <div className="py-2">
         {/* Edit user */}
-        <button className="flex items-center gap-3.5 w-full h-12 px-4 transition-colors duration-300 hover:bg-neutral-50">
+        <button className="flex items-center gap-4 w-full h-12 px-5 transition-colors duration-300 hover:bg-neutral-50">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -180,7 +180,7 @@ const ChatDetails = ({
         </button>
 
         {/* Block user */}
-        <button className="flex items-center gap-3.5 w-full h-12 px-4 text-red-500 transition-colors duration-300 hover:bg-red-50">
+        <button className="flex items-center gap-4 w-full h-12 px-5 text-red-500 transition-colors duration-300 hover:bg-red-50">
           <svg
             fill="none"
             strokeWidth="1.5"
@@ -200,7 +200,7 @@ const ChatDetails = ({
         </button>
 
         {/* Delete user */}
-        <button className="flex items-center gap-3.5 w-full h-12 px-4 text-red-500 transition-colors duration-300 hover:bg-red-50">
+        <button className="flex items-center gap-4 w-full h-12 px-5 text-red-500 transition-colors duration-300 hover:bg-red-50">
           <svg
             fill="none"
             strokeWidth="1.5"

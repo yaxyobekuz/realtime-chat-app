@@ -12,6 +12,9 @@ import {
 import Chat from "./pages/Chat";
 import Home from "./pages/Home";
 
+// Toaster
+import { Toaster } from "react-hot-toast";
+
 // Layouts
 import MainLayout from "./layouts/MainLayout";
 
@@ -27,7 +30,13 @@ const App = () => {
   );
 
   return (
-    <RouterProvider future={{ v7_startTransition: true }} router={router} />
+    <>
+      {/* Router */}
+      <RouterProvider future={{ v7_startTransition: true }} router={router} />
+
+      {/* Toaster */}
+      <Toaster />
+    </>
   );
 };
 

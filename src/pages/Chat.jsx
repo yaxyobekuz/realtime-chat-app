@@ -63,9 +63,7 @@ const Chat = () => {
     input.value = "";
   };
 
-  if (hasError) {
-    return "Error";
-  }
+  if (hasError) return "Error";
 
   return (
     <div className="flex size-full">
