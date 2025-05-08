@@ -16,6 +16,7 @@ import Home from "./pages/Home";
 import { Toaster } from "react-hot-toast";
 
 // Layouts
+import NotFound from "./pages/NotFound";
 import MainLayout from "./layouts/MainLayout";
 import ChatLayout from "./layouts/ChatLayout";
 
@@ -25,9 +26,11 @@ const App = () => {
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Home />} />
 
-        <Route path="chats/" element={<ChatLayout />}>
+        <Route path="chats" element={<ChatLayout />}>
           <Route path="chat/:chatId" element={<Chat />} />
         </Route>
+
+        <Route path="*" element={<NotFound />} />
       </Route>
     ),
     { future: { v7_relativeSplatPath: true } }
