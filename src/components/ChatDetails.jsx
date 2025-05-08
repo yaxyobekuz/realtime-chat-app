@@ -18,8 +18,6 @@ const ChatDetails = ({
         <h2 className="text-xl font-medium">Chat ma'lumotlari</h2>
       </div>
 
-      <Hr />
-
       {/* User profile */}
       <div className="flex items-center gap-4 px-4 py-4">
         {photo ? (

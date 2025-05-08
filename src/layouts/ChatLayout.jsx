@@ -9,9 +9,9 @@ import SavedMessagesLink from "../components/SavedMessagesLink";
 
 const ChatLayout = () => {
   return (
-    <div className="container">
+    <div className="container !px-0">
       <div className="flex bg-white border-x h-screen">
-        {/* Sidebar (Chats) */}
+        {/* Sidebar (Chats list) */}
         <aside className="shrink-0 w-[440px] max-h-full overflow-y-auto hidden-scroll border-r">
           <SidebarHeader />
 
@@ -25,7 +25,7 @@ const ChatLayout = () => {
           </ul>
         </aside>
 
-        {/* Messages */}
+        {/* Chat area */}
         <Dot className="max-w-[calc(100%-440px)] w-full">
           <Outlet />
         </Dot>

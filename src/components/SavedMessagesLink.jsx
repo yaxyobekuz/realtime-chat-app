@@ -1,14 +1,11 @@
 import React from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const SavedMessagesLink = () => {
-  const { chatId } = useParams();
-  const isActive = chatId === "saved";
-
   return (
     <li className="">
       <NavLink
-        to="/chat/saved"
+        to="/chats/chat/saved"
         className="flex items-center gap-3 py-2.5 px-5 transition-colors duration-300 hover:bg-neutral-50"
       >
         {/* Avatar */}
@@ -33,7 +30,7 @@ const SavedMessagesLink = () => {
           <h3 className="text-[17px] leading-6 font-medium">
             Saqlangan xabarlar
           </h3>
-          <p className="text-neutral-400">Eslatma xabarlar</p>
+          <p className="text-neutral-400">Qo'shimcha ma'lumotlar uchun</p>
         </div>
       </NavLink>
     </li>
