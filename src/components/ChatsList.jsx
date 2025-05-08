@@ -106,7 +106,7 @@ const ChatsList = () => {
     return (
       <li key={id}>
         <NavLink
-          to={`/chat/${id}`}
+          to={`/chats/chat/${id}`}
           className="flex items-center gap-3 py-2.5 px-5 transition-colors duration-300 hover:bg-neutral-50"
         >
           {photo ? (
