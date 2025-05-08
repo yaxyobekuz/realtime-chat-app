@@ -3,11 +3,7 @@ import { formatDate, formatTime } from "../utils/helpers";
 
 const Hr = () => <div className="w-full h-2 bg-neutral-50" />;
 
-const ChatDetails = ({
-  user,
-  createdAt,
-  passport = "6813c27ea75d60e6e419586e",
-}) => {
+const ChatDetails = ({ user, createdAt, passportId, paymentId }) => {
   const { pathname } = useLocation();
   const { photo, firstName, username, phone } = user || {};
 
@@ -61,7 +57,7 @@ const ChatDetails = ({
       <div className="py-2">
         {/* Passport */}
         <a
-          href={`${pathname}#${passport}`}
+          href={`${pathname}#${passportId}`}
           className="flex items-center gap-4 h-12 px-5 transition-colors duration-300 hover:bg-neutral-50"
         >
           <svg
@@ -84,7 +80,7 @@ const ChatDetails = ({
 
         {/* Payment */}
         <a
-          href={`${pathname}#${passport}`}
+          href={`${pathname}#${paymentId}`}
           className="flex items-center gap-4 h-12 px-5 transition-colors duration-300 hover:bg-neutral-50"
         >
           <svg
