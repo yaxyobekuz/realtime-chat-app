@@ -88,3 +88,7 @@
 aside a.active {
   @apply !bg-blue-50;
 }
+
+aside a.active .messages-count-badge {
+  @apply bg-white text-neutral-400/70;
+}

@@ -141,8 +141,8 @@ const ChatsList = () => {
             className={`${
               unansweredMessagesCount === 0
                 ? "bg-neutral-100 text-neutral-300"
-                : "bg-gradient-to-bl from-blue-300 to-blue-600 text-white"
-            } flex items-center justify-center shrink-0 size-8  ml-auto rounded-full`}
+                : "!bg-gradient-to-bl from-blue-300 to-blue-600 !text-white"
+            } messages-count-badge flex items-center justify-center shrink-0 size-8  ml-auto rounded-full`}
           >
             <span className="h-[22px] inline-block font-medium">
               {unansweredMessagesCount}
