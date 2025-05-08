@@ -92,3 +92,18 @@ aside a.active {
 aside a.active .messages-count-badge {
   @apply bg-white text-neutral-400/70;
 }
+
+@keyframes message-animate-pulse {
+  0%,
+  100% {
+    background: transparent;
+  }
+
+  50% {
+    background: rgba(0, 149, 255, 0.1);
+  }
+}
+
+.message-animate-pulse {
+  animation: message-animate-pulse 1.5s ease infinite;
+}
