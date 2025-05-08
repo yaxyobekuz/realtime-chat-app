@@ -1,11 +1,22 @@
-import { formatTime, getBubbleBorderRadius } from "../utils/helpers";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 
+// UI components
 import {
   ContextMenu,
   ContextMenuItem,
   ContextMenuContent,
   ContextMenuTrigger,
 } from "./ui/context-menu";
+
+// Toast
+import { toast } from "@/notification/toast";
+
+// Services
+import messageService from "@/api/services/messageService";
+
+// Helpers
+import { formatTime, getBubbleBorderRadius } from "../utils/helpers";
 
 const PhotoMessageItem = ({
   photo,
@@ -18,6 +29,7 @@ const PhotoMessageItem = ({
   prevIsAdminMessage,
   nextIsAdminMessage,
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const bubbleBorderRadius = getBubbleBorderRadius(
     isAdmin,
     isLastMessage,
@@ -26,40 +38,64 @@ const PhotoMessageItem = ({
     nextIsAdminMessage
   );
 
+  const { chatId: messageGroupId } = useParams();
+
+  const updateMessageGroupField = (fieldValue, fieldLabel) => {
+    if (isLoading) return;
+
+    setIsLoading(true);
+
+    toast.promise(
+      messageService
+        .updateMessageGroupField(messageGroupId, fieldValue, id)
+        .finally(() => setIsLoading(false)),
+      {
+        error: `${fieldLabel} ma'lumoti yangilanmadi`,
+        success: `${fieldLabel} ma'lumoti yangilandi`,
+        loading: `${fieldLabel} ma'lumoti yangilanmoqda...`,
+      }
+    );
+  };
+
   return (
     <ContextMenu>
       {/* Context Menu Trigger */}
-      <ContextMenuTrigger onContextMenu={(e) => isAdmin && e.preventDefault()}>
-        <li
-          id={id}
-          className={`${
-            isAdmin
-              ? "bg-yellow-100 border-yellow-300 ml-auto"
-              : "bg-white mr-auto"
-          } ${
-            bubbleBorderRadius.md
-          } w-[310px] border p-2.5 rounded-[20px] space-y-2 leading-5 shadow shadow-neutral-200/70`}
-        >
-          {/* Photo */}
-          <div className="relative">
-            <img
-              width={288}
-              height={288}
-              loading="lazy"
-              src={photo.url}
-              className={`${bubbleBorderRadius.sm} size-72 bg-neutral-50 object-cover`}
-            />
+      <ContextMenuTrigger
+        onContextMenu={(e) =>
+          isAdmin || isLoading ? e.preventDefault() : null
+        }
+      >
+        <li id={id} className="py-1 px-4">
+          <div
+            className={`${
+              isAdmin
+                ? "bg-yellow-100 border-yellow-300 ml-auto"
+                : "bg-white mr-auto"
+            } ${
+              bubbleBorderRadius.md
+            } w-[310px] border p-2.5 rounded-[20px] space-y-2 leading-5 shadow shadow-neutral-200/70`}
+          >
+            {/* Photo */}
+            <div className="relative">
+              <img
+                width={288}
+                height={288}
+                loading="lazy"
+                src={photo.url}
+                className={`${bubbleBorderRadius.sm} size-72 bg-neutral-50 object-cover`}
+              />
 
-            {/* Timestamp badge */}
-            <div className="absolute bottom-2 right-2 bg-black/65 px-1.5 py-0.5 rounded-full">
-              <span className="text-sm leading-none text-white">
-                {formatTime(createdAt)}
-              </span>
+              {/* Timestamp badge */}
+              <div className="absolute bottom-2 right-2 bg-black/65 px-1.5 py-0.5 rounded-full">
+                <span className="text-sm leading-none text-white">
+                  {formatTime(createdAt)}
+                </span>
+              </div>
             </div>
-          </div>
 
-          {/* Caption */}
-          {caption && <p>{caption}</p>}
+            {/* Caption */}
+            {caption && <p>{caption}</p>}
+          </div>
         </li>
       </ContextMenuTrigger>
 
@@ -67,7 +103,10 @@ const PhotoMessageItem = ({
       <ContextMenuContent>
         {/* Passport */}
         <ContextMenuItem>
-          <button className="flex items-center gap-4 px-2 py-1.5">
+          <button
+            className="flex items-center gap-4 px-2 py-1.5"
+            onClick={() => updateMessageGroupField("passportId", "Passport")}
+          >
             <svg
               fill="none"
               strokeWidth="1.5"
@@ -89,7 +128,10 @@ const PhotoMessageItem = ({
 
         {/* Payment */}
         <ContextMenuItem>
-          <button className="flex items-center gap-4 px-2 py-1.5">
+          <button
+            className="flex items-center gap-4 px-2 py-1.5"
+            onClick={() => updateMessageGroupField("paymentId", "To'lov")}
+          >
             <svg
               fill="none"
               strokeWidth="1.5"
