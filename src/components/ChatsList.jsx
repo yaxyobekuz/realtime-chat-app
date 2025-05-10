@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 // Socket
 import { io } from "socket.io-client";
@@ -16,85 +16,86 @@ import { formatTime } from "../utils/helpers";
 // Services
 import chatService from "@/api/services/chatService";
 
+// Redux (Store)
+import {
+  setChatsError,
+  setChatsLoading,
+  addNewChatToStore,
+  updateChatsFromStore,
+  updateSingleChatInStore,
+} from "@/store/features/chatsSlice";
+import { useDispatch, useSelector } from "react-redux";
+
 // Whistle notification sound for notification 🗿
 import whistleAudio from "../assets/sounds/whistle.mp3";
 
 const ChatsList = () => {
   const socket = io(apiBaseUrl);
-  const [chats, setChats] = useState([]);
-  const { chatId: currentChatId } = useParams();  
-  const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
+  const chats = useSelector((state) => state.chats);
   const [whistle] = useState(new Audio(whistleAudio));
 
+  // Load chats from DB
+  const loadChats = async () => {
+    dispatch(setChatsError(false));
+    dispatch(setChatsLoading(true));
+
+    // Load
+    const res = await chatService.getChats();
+
+    if (res.ok) {
+      dispatch(updateChatsFromStore(res.data));
+    } else {
+      toast.error(res.message);
+      dispatch(setChatsError(true));
+    }
+
+    // Remove loader
+    dispatch(setChatsLoading(false));
+  };
+
   useEffect(() => {
-    let timeoutId;
-
-    const loadChats = async () => {
-      setIsLoading(true);
-
-      // Small delay for loading animation
-      timeoutId = setTimeout(() => setIsLoading(true), 200);
-
-      const res = await chatService.getChats();
-
-      if (res.ok) setChats(res.data);
-      else toast.error(res.message);
-
-      clearTimeout(timeoutId);
-      setTimeout(() => setIsLoading(false), 300);
-    };
+    if (chats.data.length > 0 || chats.isLoading) return;
 
     loadChats();
 
     const handleReceiveChat = (newChat) => {
-      setChats((prev) => [...prev, newChat]);
+      dispatch(addNewChatToStore(newChat));
     };
 
     const handleUnansweredCount = ({ chatId, count }) => {
-      const isCurrent = (chat) => Number(chat.id) === Number(chatId);
-      const newCount = (chat) => ({ ...chat, unansweredMessagesCount: count });
+      const payload = { id: Number(chatId), unansweredMessagesCount: count };
+      dispatch(updateSingleChatInStore(payload));
 
-      setChats((prev) =>
-        prev.map((chat) => (isCurrent(chat) ? newCount(chat) : chat))
-      );
-
-      if (count === 0 || Number(currentChatId) === Number(chatId)) return;
-
-      whistle.play();
+      if (count !== 0) whistle.play();
     };
 
     socket.on("receiveChat", handleReceiveChat);
     socket.on("unansweredMessagesCount", handleUnansweredCount);
-
-    return () => {
-      socket.off("receiveChat", handleReceiveChat);
-      socket.off("unansweredMessagesCount", handleUnansweredCount);
-    };
   }, []);
 
-  if (isLoading) {
-    return (
-      <>
-        {Array.from({ length: 8 }).map((_, index) => (
-          <li
-            key={index}
-            className="flex items-center gap-3 h-[70px] px-5 animate-pulse"
-          >
-            <div className="shrink-0 size-12 bg-neutral-100 rounded-full" />
-            <div className="flex flex-col justify-center gap-2">
-              <span className="inline-block w-36 h-[17px] bg-neutral-100 rounded" />
-              <span className="inline-block w-24 h-4 bg-neutral-100 rounded" />
-            </div>
-            <div className="shrink-0 size-8 bg-neutral-100 ml-auto rounded-full" />
-          </li>
-        ))}
-      </>
-    );
+  // Loading
+  if (chats.isLoading) {
+    return Array.from({ length: 8 }).map((_, index) => (
+      <li
+        key={index}
+        className="flex items-center gap-3 h-[70px] px-5 animate-pulse"
+      >
+        <div className="shrink-0 size-12 bg-neutral-100 rounded-full" />
+        <div className="flex flex-col justify-center gap-2">
+          <span className="inline-block w-36 h-[17px] bg-neutral-100 rounded" />
+          <span className="inline-block w-24 h-4 bg-neutral-100 rounded" />
+        </div>
+        <div className="shrink-0 size-8 bg-neutral-100 ml-auto rounded-full" />
+      </li>
+    ));
   }
 
-  if (!chats.length) return null;
+  // Error
+  if (chats.hasError) return <div>Chatlar yuklanmadi!</div>;
 
-  return chats.map((chat) => {
+  // Chats
+  return chats.data.map((chat) => {
     const {
       id,
       createdAt,

@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 // Initial state
 const initialState = {
   data: [],
-  isLoading: true,
   hasError: false,
+  isLoading: false,
 };
 
 export const chatsSlice = createSlice({
@@ -25,6 +25,7 @@ export const chatsSlice = createSlice({
 
     updateSingleChatInStore: (state, { payload }) => {
       const index = state.data.findIndex((chat) => chat.id === payload.id);
+
       if (index !== -1) {
         state.data[index] = { ...state.data[index], ...payload };
       }
