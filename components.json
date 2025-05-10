@@ -2,8 +2,8 @@
   "tailwind": {
     "prefix": "",
     "cssVariables": true,
-    "css": "src/index.css",
     "baseColor": "neutral",
+    "css": "src/styles/index.css",
     "config": "tailwind.config.js"
   },
   "aliases": {
