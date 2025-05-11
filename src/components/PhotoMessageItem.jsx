@@ -17,6 +17,8 @@ import messageService from "@/api/services/messageService";
 
 // Helpers
 import { formatTime, getBubbleBorderRadius } from "../utils/helpers";
+import { useDispatch } from "react-redux";
+import { updateSingleChatMessagesInStore } from "@/store/features/messagesSlice";
 
 const PhotoMessageItem = ({
   photo,
@@ -29,6 +31,9 @@ const PhotoMessageItem = ({
   prevIsAdminMessage,
   nextIsAdminMessage,
 }) => {
+  const dispatch = useDispatch();
+  const { chatId: currentChatId } = useParams();
+  const chatId = Number(currentChatId) || false;
   const [isLoading, setIsLoading] = useState(false);
   const bubbleBorderRadius = getBubbleBorderRadius(
     isAdmin,
@@ -48,6 +53,17 @@ const PhotoMessageItem = ({
     toast.promise(
       messageService
         .updateMessageGroupField(messageGroupId, fieldValue, id)
+        .then(({ fieldName, updatedId }) => {
+          dispatch(
+            updateSingleChatMessagesInStore({
+              id: chatId,
+              [fieldName]: updatedId,
+            })
+          );
+        })
+        .catch((err) => {
+          console.log(err);
+        })
         .finally(() => setIsLoading(false)),
       {
         error: `${fieldLabel} ma'lumoti yangilanmadi`,

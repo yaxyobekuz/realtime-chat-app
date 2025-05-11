@@ -28,10 +28,9 @@ export const messagesSlice = createSlice({
     },
 
     updateSingleChatMessagesInStore: (state, { payload }) => {
-      const { id, ...rest } = payload;
-      if (!state.data[id]) return;
-
-      state.data[id] = { ...state.data[id], ...rest };
+      const prev = state.data[payload.id];
+      if (!prev) return;
+      state.data[payload.id] = { ...prev, payload };
     },
 
     setChatMessagesLoading: (state, { payload }) => {
@@ -47,10 +46,10 @@ export const messagesSlice = createSlice({
 // Export actions
 export const {
   setChatMessagesError,
+  addNewMessageToStore,
   setChatMessagesLoading,
   addNewChatMessagesToStore,
   removeChatMessagesFromStore,
-  addNewMessageToStore,
   updateSingleChatMessagesInStore,
 } = messagesSlice.actions;
 
