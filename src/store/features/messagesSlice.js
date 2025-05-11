@@ -30,7 +30,7 @@ export const messagesSlice = createSlice({
     updateSingleChatMessagesInStore: (state, { payload }) => {
       const prev = state.data[payload.id];
       if (!prev) return;
-      state.data[payload.id] = { ...prev, payload };
+      state.data[payload.id] = { ...prev, ...payload };
     },
 
     setChatMessagesLoading: (state, { payload }) => {

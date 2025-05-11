@@ -29,6 +29,8 @@ const ChatDetails = () => {
   const chatId = Number(currentChatId) || false;
   const { data, isLoading } = useSelector((state) => state.messages);
 
+  console.log(data);
+
   const { user, createdAt, passportId, paymentId } = data[chatId] || {};
   const { photo, firstName, username, phone } = user || {};
 

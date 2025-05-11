@@ -53,16 +53,15 @@ const PhotoMessageItem = ({
     toast.promise(
       messageService
         .updateMessageGroupField(messageGroupId, fieldValue, id)
-        .then(({ fieldName, updatedId }) => {
+        .then((res) => {
+          const { fieldName, updatedId } = res?.data || {};
+
           dispatch(
             updateSingleChatMessagesInStore({
               id: chatId,
               [fieldName]: updatedId,
             })
           );
-        })
-        .catch((err) => {
-          console.log(err);
         })
         .finally(() => setIsLoading(false)),
       {
