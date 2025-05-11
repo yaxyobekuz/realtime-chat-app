@@ -36,11 +36,9 @@ const ChatBody = () => {
     el.classList.add("message-animate-pulse");
     el.scrollIntoView({ behavior: "smooth", block: "center" });
 
-    const timeoutId = setTimeout(() => {
+    setTimeout(() => {
       el.classList.remove("message-animate-pulse");
     }, 3000);
-
-    return () => clearTimeout(timeoutId); // Cleanup
   }, [hash]);
 
   // Loading
