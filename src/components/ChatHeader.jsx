@@ -1,6 +1,16 @@
 import React from "react";
 
-const ChatHeader = ({ title = "", avatar = "", placeholder = "" }) => {
+// Redux (Store)
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+
+const ChatHeader = ({ placeholder = "" }) => {
+  const { chatId: currentChatId } = useParams();
+  const chatId = Number(currentChatId) || false;
+  const { data } = useSelector((state) => state.messages);
+
+  const { firstName: title } = data[chatId]?.user || {};
+
   return (
     <header className="bg-white px-4 border-b h-16">
       <div className="flex items-center justify-between h-full">
@@ -28,7 +38,7 @@ const ChatHeader = ({ title = "", avatar = "", placeholder = "" }) => {
           {/* Details */}
           <div className="text-start space-y-0.5">
             <h3 className="text-[17px] leading-6 font-medium">
-              {title || "Sarlavha mavjud emas"}
+              {title || "..."}
             </h3>
 
             {/* Placeholder */}

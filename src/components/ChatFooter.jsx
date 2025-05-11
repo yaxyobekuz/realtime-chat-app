@@ -3,15 +3,16 @@ import { useParams } from "react-router-dom";
 
 const ChatFooter = ({ sendMessage }) => {
   const inputRef = useRef();
-  const { chatId } = useParams();
+  const { chatId: currentChatId } = useParams();
+  const chatId = Number(currentChatId) || false;
 
-  const handleClick = () => {
+  const handleFocus = () => {
     if (!inputRef?.current) return;
     inputRef.current.focus();
   };
 
   useEffect(() => {
-    handleClick();
+    handleFocus();
   }, [chatId]);
 
   return (
@@ -54,7 +55,7 @@ const ChatFooter = ({ sendMessage }) => {
         {/* Submit button */}
         <button
           type="submit"
-          onClick={handleClick}
+          onClick={handleFocus}
           className="flex items-center justify-center shrink-0 size-12 rounded-full"
         >
           <svg
