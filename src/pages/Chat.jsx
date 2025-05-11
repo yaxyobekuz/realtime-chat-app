@@ -20,45 +20,51 @@ import ChatDetails from "../components/ChatDetails";
 // Services
 import chatService from "@/api/services/chatService";
 
-const Chat = () => {
-  const { chatId } = useParams();
-  const [chat, setChat] = useState({});
-  const [messages, setMessages] = useState([]);
-  const [hasError, setHasError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+// Redux (Store)
+import {
+  addNewMessageToStore,
+  setChatMessagesError,
+  setChatMessagesLoading,
+  addNewChatMessagesToStore,
+} from "@/store/features/messagesSlice";
+import { useDispatch, useSelector } from "react-redux";
 
-  const { user } = chat || {};
+const Chat = () => {
+  const dispatch = useDispatch();
+  const [chat, setChat] = useState({});
+  const { chatId: currentChatId } = useParams();
+  const chatId = Number(currentChatId) || false;
+  const { isLoading, data, hasError } = useSelector((state) => state.messages);
 
   const loadMessages = useCallback(async () => {
-    setHasError(false);
-    setIsLoading(true);
+    // Add loader
+    dispatch(setChatMessagesError({ id: chatId }));
+    dispatch(setChatMessagesLoading({ id: chatId, value: true }));
 
     const res = await chatService.getChatMessages(chatId);
 
     if (res.ok) {
-      const { messages, ...chatData } = res.data;
-      setChat(chatData);
-      setMessages(messages);
-    } else {
-      setHasError(true);
-      toast.error(res.message);
+      // Add chat messages
+      dispatch(addNewChatMessagesToStore(res.data));
+
+      // Get new messages from user
+      socket.on(`chatMessage:${chatId}`, (data) => {
+        dispatch(addNewMessageToStore({ chatId, message: data }));
+      });
     }
 
-    setIsLoading(false);
+    // Error
+    else {
+      toast.error(res.message);
+      dispatch(setChatMessagesError({ id: chatId, value: true }));
+    }
+
+    // Remove loader
+    dispatch(setChatMessagesLoading({ id: chatId }));
   }, [chatId]);
 
   useEffect(() => {
-    loadMessages();
-
-    const handleNewMessage = (data) => {
-      setMessages((prev) => [...prev, data]);
-    };
-
-    socket.on(`chatMessage:${chatId}`, handleNewMessage);
-
-    return () => {
-      socket.off(`chatMessage:${chatId}`, handleNewMessage);
-    };
+    if (!data[chatId] && !isLoading[chatId]) loadMessages();
   }, [chatId, loadMessages]);
 
   const sendMessage = useCallback(
@@ -67,7 +73,7 @@ const Chat = () => {
       const input = e.target.querySelector("input[type='text']");
       const text = input.value?.trim();
 
-      if (!text || isLoading) return;
+      if (!text || isLoading[chatId]) return;
 
       socket.emit("sendMessage", { text, chatId }, (res) => {
         console.log(res);
@@ -78,19 +84,19 @@ const Chat = () => {
     [chatId, isLoading]
   );
 
-  if (hasError) return "Error";
+  if (hasError[chatId]) return "Xatolik yuz berdi!";
 
   return (
     <div className="flex size-full">
       {/* Chat Area */}
       <div className="max-w-[calc(100%-440px)] size-full">
-        <ChatHeader title={user?.firstName} />
-        <ChatBody messages={messages} />
-        <ChatFooter sendMessage={sendMessage} isLoading={isLoading} />
+        <ChatHeader />
+        <ChatBody />
+        <ChatFooter sendMessage={sendMessage} />
       </div>
 
       {/* Chat Details */}
-      <ChatDetails {...chat} />
+      <ChatDetails />
     </div>
   );
 };

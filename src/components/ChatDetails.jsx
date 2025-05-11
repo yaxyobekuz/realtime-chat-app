@@ -1,18 +1,95 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
+
+// Redux (Store)
+import { useSelector } from "react-redux";
+
+// Helpers
 import { formatDate, formatTime } from "../utils/helpers";
 
 const Hr = () => <div className="w-full h-2 bg-neutral-50" />;
 
-const ChatDetails = ({ user, createdAt, passportId, paymentId }) => {
+const ActionButtonSkeleton = () => (
+  <div className="flex items-center gap-4 h-12 px-5 transition-colors duration-300 hover:bg-neutral-50">
+    <div className="shrink-0 size-6 bg-neutral-100 rounded-full" />
+    <div className="shrink-0 w-32 h-5 bg-neutral-100 rounded-lg" />
+  </div>
+);
+
+const Header = () => (
+  <div className="flex items-center px-5 h-16">
+    <h2 className="text-xl font-medium">Chat ma'lumotlari</h2>
+  </div>
+);
+
+const className = `shrink-0 w-[440px] max-h-full overflow-y-auto hidden-scroll border-l bg-white`;
+
+const ChatDetails = () => {
   const { pathname } = useLocation();
+  const { chatId: currentChatId } = useParams();
+  const chatId = Number(currentChatId) || false;
+  const { data, isLoading } = useSelector((state) => state.messages);
+
+  const { user, createdAt, passportId, paymentId } = data[chatId] || {};
   const { photo, firstName, username, phone } = user || {};
 
-  return (
-    <section className="shrink-0 w-[440px] max-h-full overflow-y-auto hidden-scroll border-l bg-white">
-      {/* Header */}
-      <div className="flex items-center px-5 h-16">
-        <h2 className="text-xl font-medium">Chat ma'lumotlari</h2>
+  if (isLoading[chatId]) {
+    return (
+      <div className={className}>
+        {/* Header */}
+        <Header />
+
+        {/* User profile */}
+        <div className="flex items-center gap-4 px-4 py-4">
+          <div className="shrink-0 size-20 bg-neutral-100 rounded-full" />
+
+          <div className="w-full space-y-3">
+            <div className="shrink-0 w-36 h-6 bg-neutral-100 rounded-lg" />
+
+            {/* Username & Timestamp */}
+            <div className="flex items-center justify-between w-full gap-2">
+              <div className="shrink-0 w-20 h-5 bg-neutral-100 rounded-lg" />
+              <div className="shrink-0 w-20 h-5 bg-neutral-100 rounded-lg" />
+            </div>
+          </div>
+        </div>
+
+        <Hr />
+
+        <div className="py-2">
+          {/* Passport */}
+          <ActionButtonSkeleton />
+
+          {/* Payment */}
+          <ActionButtonSkeleton />
+
+          {/* Write as telegram */}
+          <ActionButtonSkeleton />
+
+          {/* phone number */}
+          <ActionButtonSkeleton />
+        </div>
+
+        <Hr />
+
+        {/* Actions */}
+        <div className="py-2">
+          {/* Edit user */}
+          <ActionButtonSkeleton />
+
+          {/* Block user */}
+          <ActionButtonSkeleton />
+
+          {/* Delete user */}
+          <ActionButtonSkeleton />
+        </div>
       </div>
+    );
+  }
+
+  return (
+    <section className={className}>
+      {/* Header */}
+      <Header />
 
       {/* User profile */}
       <div className="flex items-center gap-4 px-4 py-4">
