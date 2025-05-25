@@ -31,7 +31,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 const Chat = () => {
   const dispatch = useDispatch();
-  const [chat, setChat] = useState({});
   const { chatId: currentChatId } = useParams();
   const chatId = Number(currentChatId) || false;
   const { isLoading, data, hasError } = useSelector((state) => state.messages);
@@ -67,23 +66,6 @@ const Chat = () => {
     if (!data[chatId] && !isLoading[chatId]) loadMessages();
   }, [chatId, loadMessages]);
 
-  const sendMessage = useCallback(
-    (e) => {
-      e.preventDefault();
-      const input = e.target.querySelector("input[type='text']");
-      const text = input.value?.trim();
-
-      if (!text || isLoading[chatId]) return;
-
-      socket.emit("sendMessage", { text, chatId }, (res) => {
-        console.log(res);
-      });
-
-      input.value = "";
-    },
-    [chatId, isLoading]
-  );
-
   if (hasError[chatId]) return "Xatolik yuz berdi!";
 
   return (
@@ -92,7 +74,7 @@ const Chat = () => {
       <div className="max-w-[calc(100%-440px)] size-full">
         <ChatHeader />
         <ChatBody />
-        <ChatFooter sendMessage={sendMessage} />
+        <ChatFooter isLoading={isLoading[chatId]} />
       </div>
 
       {/* Chat Details */}
