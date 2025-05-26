@@ -30,7 +30,9 @@ const ChatDetails = () => {
   const { pathname } = useLocation();
   const { chatId: currentChatId } = useParams();
   const chatId = Number(currentChatId) || false;
+  const { data: chatsData } = useSelector((state) => state.chats);
   const { data, isLoading } = useSelector((state) => state.messages);
+  const chatStatus = chatsData?.find(({ id }) => id === chatId)?.status;
 
   const { user, createdAt, passportId, paymentId } = data[chatId] || {};
   const { photo, firstName, username, phone } = user || {};
@@ -254,7 +256,11 @@ const ChatDetails = () => {
         </button>
 
         {/* Update user status */}
-        <StatusDrawer firstName={firstName} />
+        <StatusDrawer
+          chatId={chatId}
+          firstName={firstName}
+          defaultValue={chatStatus}
+        />
 
         {/* Block user */}
         <button className="flex items-center gap-4 w-full h-12 px-5 text-red-500 transition-colors duration-300 hover:bg-red-50">

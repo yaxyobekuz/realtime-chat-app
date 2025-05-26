@@ -1,8 +1,5 @@
 import { useState } from "react";
 
-// Hooks
-import useMediaQuery from "@/hooks/useMediaQuery";
-
 // Ui components
 import {
   Dialog,
@@ -22,17 +19,71 @@ import {
   DrawerTrigger,
   DrawerDescription,
 } from "@/components/ui/drawer";
+
+// Toast (Notification)
+import { toast } from "@/notification/toast";
+
+// Hooks
+import useMediaQuery from "@/hooks/useMediaQuery";
+
+// Data
 import statuses from "@/data/statuses";
+import chatService from "@/api/services/chatService";
+
+// Redux (Store)
+import { useDispatch } from "react-redux";
+import { updateSingleChatInStore } from "@/store/features/chatsSlice";
 
 // Body component
-const Body = ({ defaultValue }) => {
+const Body = ({ chatId, closeDialog, defaultValue }) => {
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState(defaultValue);
+
+  const updateStatus = async () => {
+    if (isLoading || defaultValue === status) return;
+
+    closeDialog();
+
+    // Set loader
+    setIsLoading(true);
+
+    // Load
+    toast.promise(
+      chatService
+        .updateChatStatus(chatId, { status })
+        .then(({ ok, data }) => {
+          if (ok) {
+            dispatch(
+              updateSingleChatInStore({
+                id: chatId,
+                status: data.updatedStatus,
+              })
+            );
+          } else {
+            throw new Error();
+          }
+        })
+        .finally(() => setIsLoading(false)),
+      {
+        error: "Chat holati o'zgartirilmadi",
+        success: "Chat holati o'zgartirildi",
+        loading: "Chat holati o'zgartirilmoqda...",
+      }
+    );
+  };
+
   return (
     <div className="space-y-5 px-5 md:px-0">
       <ul className="max-h-64 overflow-y-auto hidden-scroll space-y-1.5">
-        {statuses.map(({ color, label, value }, index) => {
+        {statuses.map(({ label, value }, index) => {
           return (
             <li key={index}>
-              <label>
+              <label
+                onClick={() => setStatus(value)}
+                className="cursor-pointer"
+              >
+                {/* Hidden radio input */}
                 <input
                   name="status"
                   type="radio"
@@ -51,7 +102,11 @@ const Body = ({ defaultValue }) => {
       </ul>
 
       {/* Action button */}
-      <button className="flex items-center justify-center w-full h-10 bg-gradient-to-tr from-blue-300 to-blue-600 rounded-lg text-white">
+      <button
+        onClick={updateStatus}
+        disabled={isLoading || defaultValue === status}
+        className="flex items-center justify-center w-full h-10 bg-gradient-to-tr from-blue-300 to-blue-600 rounded-lg text-white transition-colors duration-200 disabled:opacity-70"
+      >
         O'zgartirish
       </button>
     </div>
@@ -59,7 +114,7 @@ const Body = ({ defaultValue }) => {
 };
 
 // Root component
-const StatusDrawer = ({ firstName, defaultValue = "new" }) => {
+const StatusDrawer = ({ chatId, firstName, defaultValue = "new" }) => {
   const [open, setOpen] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
@@ -97,7 +152,11 @@ const StatusDrawer = ({ firstName, defaultValue = "new" }) => {
           </DialogHeader>
 
           {/* Body */}
-          <Body defaultValue={defaultValue} />
+          <Body
+            chatId={chatId}
+            defaultValue={defaultValue}
+            closeDialog={() => setOpen(false)}
+          />
         </DialogContent>
       </Dialog>
     );
@@ -136,7 +195,11 @@ const StatusDrawer = ({ firstName, defaultValue = "new" }) => {
         </DialogHeader>
 
         {/* Body */}
-        <Body defaultValue={defaultValue} />
+        <Body
+          chatId={chatId}
+          defaultValue={defaultValue}
+          closeDialog={() => setOpen(false)}
+        />
 
         {/* Footer */}
         <DrawerFooter className="pt-2">
