@@ -5,7 +5,7 @@ const SavedMessagesLink = () => {
   return (
     <li className="">
       <NavLink
-        to="/chats/chat/saved"
+        to="/chats/chat/1"
         className="flex items-center gap-3 py-2.5 px-5 transition-colors duration-300 hover:bg-neutral-50"
       >
         {/* Avatar */}

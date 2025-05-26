@@ -1,10 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
 
 // Config
 import { apiBaseUrl } from "@/config";
 import quickReplies from "@/data/quickReplies";
+
+// Redux (Store)
+import { useDispatch } from "react-redux";
 import { addNewMessageToStore } from "@/store/features/messagesSlice";
 
 // Socket
@@ -15,7 +17,7 @@ const ChatFooter = ({ isLoading }) => {
   const inputRef = useRef();
   const dispatch = useDispatch();
   const { chatId: currentChatId } = useParams();
-  const chatId = Number(currentChatId) || false;
+  const chatId = Number(currentChatId);
 
   const [inputValue, setInputValue] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -30,7 +32,9 @@ const ChatFooter = ({ isLoading }) => {
       const text = inputValue.trim();
       if (!text || isLoading) return;
 
-      socket.emit("sendMessage", { text, chatId }, () => {
+      socket.emit("sendMessage", { text, chatId }, (res) => {
+        console.log(res);
+
         dispatch(
           addNewMessageToStore({
             chatId,

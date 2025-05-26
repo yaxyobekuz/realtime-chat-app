@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 
 // Config
@@ -32,7 +32,7 @@ import { useDispatch, useSelector } from "react-redux";
 const Chat = () => {
   const dispatch = useDispatch();
   const { chatId: currentChatId } = useParams();
-  const chatId = Number(currentChatId) || false;
+  const chatId = Number(currentChatId);
   const { isLoading, data, hasError } = useSelector((state) => state.messages);
 
   const loadMessages = useCallback(async () => {
