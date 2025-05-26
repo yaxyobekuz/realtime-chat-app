@@ -27,6 +27,15 @@ const chatService = {
       return formatErrorMessage(error);
     }
   },
+
+  updateChatStatus: async (chatId, data) => {
+    try {
+      const res = await api.put(endpoints.updateChatStatus(chatId), data);
+      return { ok: true, data: res };
+    } catch (error) {
+      return formatErrorMessage(error);
+    }
+  },
 };
 
 export default chatService;
