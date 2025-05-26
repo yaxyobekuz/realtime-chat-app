@@ -81,7 +81,7 @@
 
 @layer utilities {
   .container {
-    @apply max-w-[1720px] w-full px-5 mx-auto;
+    @apply max-w-[1920px] w-full px-5 mx-auto;
   }
 }
 

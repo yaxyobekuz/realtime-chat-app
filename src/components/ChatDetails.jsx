@@ -1,5 +1,8 @@
 import { useLocation, useParams } from "react-router-dom";
 
+// Components
+import StatusDrawer from "./StatusDrawer";
+
 // Redux (Store)
 import { useSelector } from "react-redux";
 
@@ -230,7 +233,7 @@ const ChatDetails = () => {
 
       {/* Actions */}
       <div className="py-2">
-        {/* Edit user */}
+        {/* Edit user info */}
         <button className="flex items-center gap-4 w-full h-12 px-5 transition-colors duration-300 hover:bg-neutral-50">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -249,6 +252,9 @@ const ChatDetails = () => {
 
           <span>Ma'lumotlarni o'zgartirish</span>
         </button>
+
+        {/* Update user status */}
+        <StatusDrawer firstName={firstName} />
 
         {/* Block user */}
         <button className="flex items-center gap-4 w-full h-12 px-5 text-red-500 transition-colors duration-300 hover:bg-red-50">
