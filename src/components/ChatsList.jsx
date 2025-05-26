@@ -7,6 +7,9 @@ import { io } from "socket.io-client";
 // Api base url
 import { apiBaseUrl } from "../config";
 
+// Data
+import statuses from "@/data/statuses";
+
 // Notification
 import { toast } from "@/notification/toast";
 
@@ -104,6 +107,8 @@ const ChatsList = () => {
       user: { firstName, photo },
     } = chat;
 
+    const formattedStatus = statuses.find(({ value }) => value === status);
+
     return (
       <li key={id}>
         <NavLink
@@ -131,7 +136,9 @@ const ChatsList = () => {
               {firstName}
             </h3>
             <div className="flex items-center justify-between w-full">
-              <p className="text-neutral-400">{status}</p>
+              <p className="text-neutral-400">
+                {formattedStatus?.label || status}
+              </p>
               <p className="text-neutral-400 text-sm">
                 {formatTime(createdAt)}
               </p>
