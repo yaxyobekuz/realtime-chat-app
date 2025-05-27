@@ -107,3 +107,11 @@ aside a.active .messages-count-badge {
 .message-animate-pulse {
   animation: message-animate-pulse 1.5s ease infinite;
 }
+
+.sidebar-tabs-scroll::-webkit-scrollbar {
+  @apply h-2 bg-neutral-100;
+}
+
+.sidebar-tabs-scroll::-webkit-scrollbar-thumb {
+  @apply bg-blue-500 rounded-full;
+}

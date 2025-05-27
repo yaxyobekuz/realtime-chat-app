@@ -30,9 +30,9 @@ const statuses = [
     color: "green",
   },
   {
-    label: "Bloklangan",
-    value: "blocked",
-    color: "red",
+    label: "Yakunlangan",
+    value: "completed",
+    color: "emerald",
   },
   {
     label: "Bekor qilingan",
@@ -40,24 +40,9 @@ const statuses = [
     color: "gray",
   },
   {
-    label: "Rad etilgan",
-    value: "rejected",
-    color: "rose",
-  },
-  {
-    label: "Ko'rib chiqilmoqda",
-    value: "underReview",
-    color: "purple",
-  },
-  {
-    label: "Yakunlangan",
-    value: "completed",
-    color: "emerald",
-  },
-  {
-    label: "Yetkazilgan",
-    value: "delivered",
-    color: "teal",
+    label: "Bloklangan",
+    value: "blocked",
+    color: "red",
   },
 ];
 
