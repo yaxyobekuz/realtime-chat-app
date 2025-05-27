@@ -32,7 +32,7 @@ import { useDispatch, useSelector } from "react-redux";
 // Whistle notification sound for notification 🗿
 import whistleAudio from "../assets/sounds/whistle.mp3";
 
-const ChatsList = () => {
+const ChatsList = ({ chatStatus }) => {
   const socket = io(apiBaseUrl);
   const dispatch = useDispatch();
   const chats = useSelector((state) => state.chats);
@@ -97,8 +97,14 @@ const ChatsList = () => {
   // Error
   if (chats.hasError) return <div>Chatlar yuklanmadi!</div>;
 
+  // Filter chats by status
+  const filteredChats = (() => {
+    if (!chatStatus) return chats.data;
+    return chats.data.filter(({ status }) => status === chatStatus);
+  })();
+
   // Chats
-  return chats.data.map((chat) => {
+  return filteredChats.map((chat) => {
     const {
       id,
       createdAt,
