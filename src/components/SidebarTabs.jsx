@@ -1,15 +1,36 @@
 import statuses from "@/data/statuses";
 
-const SidebarTabs = () => {
+const SidebarTabs = ({ updateChatStatus, chatStatus }) => {
+  const handleStatusChange = (status) => {
+    updateChatStatus(status);
+  };
+
+  const inactiveClass = "group-hover:bg-white";
+  const activeClass = "bg-blue-100 text-blue-800";
+
+  const getClass = (value) => {
+    const c = value ? activeClass : inactiveClass;
+    return c + " p-3 rounded-lg transition-colors duration-200";
+  };
+
   return (
-    <div className="w-full h-[70px] bg-neutral-50">
-      <ul className="flex items-center gap-0.5 size-full overflow-x-auto hidden-scroll px-2.5">
+    <div className="w-full h-[70px]">
+      <ul className="flex gap-1.5 size-full overflow-x-auto sidebar-tabs-scroll px-2.5">
+        {/* All */}
+        <li className="shrink-0 h-full">
+          <button className="flex items-start group h-full" onClick={() => handleStatusChange()}>
+            <span className={getClass(!chatStatus)}>Barchasi</span>
+          </button>
+        </li>
+
+        {/* Other statuses */}
         {statuses.map(({ label, value }, index) => (
           <li key={index} className="shrink-0 h-full">
-            <button className="group h-full">
-              <span className="p-3 rounded-lg transition-colors duration-200 group-hover:bg-white">
-                {label}
-              </span>
+            <button
+              className="flex items-start group h-full"
+              onClick={() => handleStatusChange(value)}
+            >
+              <span className={getClass(chatStatus === value)}>{label}</span>
             </button>
           </li>
         ))}
