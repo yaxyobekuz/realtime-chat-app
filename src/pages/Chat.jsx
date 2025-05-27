@@ -12,10 +12,10 @@ const socket = io(apiBaseUrl);
 import { toast } from "@/notification/toast";
 
 // Components
-import ChatBody from "../components/ChatBody";
-import ChatHeader from "../components/ChatHeader";
-import ChatFooter from "../components/ChatFooter";
-import ChatDetails from "../components/ChatDetails";
+import ChatBody from "@/components/ChatBody";
+import ChatHeader from "@/components/ChatHeader";
+import ChatFooter from "@/components/ChatFooter";
+import ChatDetails from "@/components/ChatDetails";
 
 // Services
 import chatService from "@/api/services/chatService";
