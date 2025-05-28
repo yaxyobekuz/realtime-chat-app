@@ -13,9 +13,9 @@ import { formatDate, formatTime } from "../utils/helpers";
 // Images
 import filesIcon from "../assets/icons/files.svg";
 import trashIcon from "../assets/icons/trash.svg";
-import handIcon from "../assets/icons/hand-raised.svg";
 import paymentIcon from "../assets/icons/payment.svg";
 import messageIcon from "../assets/icons/message.svg";
+import handIcon from "../assets/icons/hand-raised.svg";
 import pencilIcon from "../assets/icons/pencil-square.svg";
 import phoneIcon from "../assets/icons/phone-arrow-up.svg";
 
@@ -149,8 +149,10 @@ const ChatDetails = () => {
       <div className="py-2">
         {/* Passport */}
         <a
-          href={`${pathname}#${passportId || ""}`}
-          className="flex items-center gap-4 h-12 px-5 transition-colors duration-300 hover:bg-neutral-50"
+          href={passportId ? `${pathname}#${passportId}` : undefined}
+          className={`${
+            passportId ? "hover:bg-neutral-50" : "opacity-30"
+          } flex items-center gap-4 h-12 px-5 transition-colors duration-300`}
         >
           <Icon src={filesIcon} alt="Files" />
           <span>Pasport ma'lumotlari</span>
@@ -158,8 +160,10 @@ const ChatDetails = () => {
 
         {/* Payment */}
         <a
-          href={`${pathname}#${paymentId || ""}`}
-          className="flex items-center gap-4 h-12 px-5 transition-colors duration-300 hover:bg-neutral-50"
+          href={paymentId ? `${pathname}#${paymentId}` : undefined}
+          className={`${
+            paymentId ? "hover:bg-neutral-50" : "opacity-30"
+          } flex items-center gap-4 h-12 px-5 transition-colors duration-300`}
         >
           <Icon src={paymentIcon} alt="Banknotes" />
           <span>To'lov ma'lumotlari</span>
@@ -168,8 +172,10 @@ const ChatDetails = () => {
         {/* Write as telegram */}
         <a
           target="_blank"
-          href={username ? `https://t.me/${username}` : "false"}
-          className="flex items-center gap-4 h-12 px-5 transition-colors duration-300 hover:bg-neutral-50"
+          href={username ? `https://t.me/${username}` : undefined}
+          className={`${
+            username ? "hover:bg-neutral-50" : "opacity-30"
+          } flex items-center gap-4 h-12 px-5 transition-colors duration-300`}
         >
           <Icon src={messageIcon} alt="Message" />
           <span>Telegramdan yozish</span>
@@ -177,8 +183,10 @@ const ChatDetails = () => {
 
         {/* phone number */}
         <a
-          href={phone ? `tel:+${phone}` : "false"}
-          className="flex items-center gap-4 h-12 px-5 transition-colors duration-300 hover:bg-neutral-50"
+          href={phone ? `tel:+${phone}` : undefined}
+          className={`${
+            phone ? "hover:bg-neutral-50" : "opacity-30"
+          } flex items-center gap-4 h-12 px-5 transition-colors duration-300`}
         >
           <Icon src={phoneIcon} alt="Phone" />
           <span>Qo'ng'iroq qilish</span>
