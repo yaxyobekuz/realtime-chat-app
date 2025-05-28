@@ -1,5 +1,8 @@
 import { useState } from "react";
 
+// Components
+import Icon from "./Icon";
+
 // Ui components
 import {
   Dialog,
@@ -26,6 +29,9 @@ import { toast } from "@/notification/toast";
 // Hooks
 import useMediaQuery from "@/hooks/useMediaQuery";
 
+// Images
+import reloadIcon from "../assets/icons/reload.svg";
+
 // Data
 import statuses from "@/data/statuses";
 import chatService from "@/api/services/chatService";
@@ -33,7 +39,6 @@ import chatService from "@/api/services/chatService";
 // Redux (Store)
 import { useDispatch } from "react-redux";
 import { updateSingleChatInStore } from "@/store/features/chatsSlice";
-
 // Body component
 const Body = ({ chatId, closeDialog, defaultValue }) => {
   const dispatch = useDispatch();
@@ -123,21 +128,7 @@ const StatusDrawer = ({ chatId, firstName, defaultValue = "new" }) => {
       <Dialog open={open} onOpenChange={setOpen}>
         {/* Trigger */}
         <DialogTrigger className="flex items-center gap-4 w-full h-12 px-5 transition-colors duration-300 hover:bg-neutral-50">
-          <svg
-            fill="none"
-            strokeWidth="1.5"
-            className="size-6"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
-            />
-          </svg>
-
+          <Icon src={reloadIcon} alt="Reload" />
           <span>Holatni o'zgartirish</span>
         </DialogTrigger>
 
@@ -166,21 +157,7 @@ const StatusDrawer = ({ chatId, firstName, defaultValue = "new" }) => {
     <Drawer open={open} onOpenChange={setOpen}>
       {/* Trigger */}
       <DrawerTrigger className="flex items-center gap-4 w-full h-12 px-5 transition-colors duration-300 hover:bg-neutral-50">
-        <svg
-          fill="none"
-          strokeWidth="1.5"
-          className="size-6"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
-          />
-        </svg>
-
+        <Icon src={reloadIcon} alt="Reload" />
         <span>Holatni o'zgartirish</span>
       </DrawerTrigger>
 
