@@ -1,15 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 // Initial state
-const initialState = {
-  data: [],
-  hasError: false,
-  isLoading: false,
-};
+const initialState = { data: [], hasError: false, isLoading: false };
 
 export const chatsSlice = createSlice({
-  name: "chats",
   initialState,
+  name: "chats",
   reducers: {
     updateChatsFromStore: (state, action) => {
       state.data = action.payload;

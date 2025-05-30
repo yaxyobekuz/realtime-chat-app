@@ -1,15 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 // Initial state
-const initialState = {
-  data: {},
-  hasError: {},
-  isLoading: {},
-};
+const initialState = { data: {}, hasError: {}, isLoading: {} };
 
 export const messagesSlice = createSlice({
-  name: "messages",
   initialState,
+  name: "messages",
   reducers: {
     addNewChatMessagesToStore: (state, { payload }) => {
       state.data[payload.id] = payload;
@@ -25,12 +21,6 @@ export const messagesSlice = createSlice({
 
       const data = [...(state.data[chatId].messages || []), message];
       state.data[chatId].messages = data;
-    },
-
-    updateSingleChatMessagesInStore: (state, { payload }) => {
-      const prev = state.data[payload.id];
-      if (!prev) return;
-      state.data[payload.id] = { ...prev, ...payload };
     },
 
     setChatMessagesLoading: (state, { payload }) => {
@@ -50,7 +40,6 @@ export const {
   setChatMessagesLoading,
   addNewChatMessagesToStore,
   removeChatMessagesFromStore,
-  updateSingleChatMessagesInStore,
 } = messagesSlice.actions;
 
 // Export reducer
