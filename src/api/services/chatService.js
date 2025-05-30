@@ -36,6 +36,18 @@ const chatService = {
       return formatErrorMessage(error);
     }
   },
+
+  updateChatField: async (messageGroupId, fieldName, newId) => {
+    try {
+      const res = await api.put(
+        endpoints.updateChatField(messageGroupId, fieldName),
+        { id: newId }
+      );
+      return { ok: true, data: res };
+    } catch (error) {
+      return formatErrorMessage(error);
+    }
+  },
 };
 
 export default chatService;
