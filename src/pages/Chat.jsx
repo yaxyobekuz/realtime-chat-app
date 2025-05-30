@@ -1,12 +1,12 @@
 import React, { useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 
-// Config
-import { apiBaseUrl } from "../config";
-
 // Socket
 import { io } from "socket.io-client";
 const socket = io(apiBaseUrl);
+
+// Config
+import { apiBaseUrl } from "../config";
 
 // Notification
 import { toast } from "@/notification/toast";

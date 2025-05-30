@@ -13,12 +13,14 @@ import {
 import { toast } from "@/notification/toast";
 
 // Services
-import messageService from "@/api/services/messageService";
+import chatService from "@/api/services/chatService";
 
 // Helpers
 import { formatTime, getBubbleBorderRadius } from "../utils/helpers";
+
+// Redux (Store)
 import { useDispatch } from "react-redux";
-import { updateSingleChatMessagesInStore } from "@/store/features/messagesSlice";
+import { updateSingleChatInStore } from "@/store/features/chatsSlice";
 
 const PhotoMessageItem = ({
   photo,
@@ -45,23 +47,18 @@ const PhotoMessageItem = ({
 
   const { chatId: messageGroupId } = useParams();
 
-  const updateMessageGroupField = (fieldValue, fieldLabel) => {
+  const updateChatStatus = (fieldValue, fieldLabel) => {
     if (isLoading) return;
 
     setIsLoading(true);
 
     toast.promise(
-      messageService
-        .updateMessageGroupField(messageGroupId, fieldValue, id)
+      chatService
+        .updateChatField(messageGroupId, fieldValue, id)
         .then((res) => {
           const { fieldName, updatedId } = res?.data || {};
-
-          dispatch(
-            updateSingleChatMessagesInStore({
-              id: chatId,
-              [fieldName]: updatedId,
-            })
-          );
+          const payload = { id: chatId, [fieldName]: updatedId };
+          dispatch(updateSingleChatInStore(payload));
         })
         .finally(() => setIsLoading(false)),
       {
@@ -120,7 +117,7 @@ const PhotoMessageItem = ({
         <ContextMenuItem>
           <button
             className="flex items-center gap-4 px-2 py-1.5"
-            onClick={() => updateMessageGroupField("passportId", "Passport")}
+            onClick={() => updateChatStatus("passportId", "Passport")}
           >
             <svg
               fill="none"
@@ -145,7 +142,7 @@ const PhotoMessageItem = ({
         <ContextMenuItem>
           <button
             className="flex items-center gap-4 px-2 py-1.5"
-            onClick={() => updateMessageGroupField("paymentId", "To'lov")}
+            onClick={() => updateChatStatus("paymentId", "To'lov")}
           >
             <svg
               fill="none"

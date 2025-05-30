@@ -44,12 +44,9 @@ const ChatDetails = () => {
   const chatId = Number(paramChatId) || false;
 
   // Redux selectors
-  const { data: allChats } = useSelector((state) => state.chats);
-  const { data: messageData, isLoading } = useSelector(
-    (state) => state.messages
-  );
+  const { data: allChats, isLoading } = useSelector((state) => state.chats);
 
-  const currentChat = messageData[chatId] || {};
+  const currentChat = allChats.find(({ id }) => id == chatId) || {};
   const { user = {}, createdAt, passportId, paymentId } = currentChat;
   const currentChatStatus = allChats?.find(({ id }) => id === chatId)?.status;
   const { photo, firstName, username, phone } = user;

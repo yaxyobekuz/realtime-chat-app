@@ -76,11 +76,11 @@ const ChatBody = () => {
             nextIsAdminMessage: nextIsAdmin,
           };
 
-          if (msg.type === "text") {
+          if (msg?.type === "text") {
             return <TextMessageItem key={i} {...sharedProps} />;
           }
 
-          if (msg.type === "photo") {
+          if (msg?.type === "photo") {
             return <PhotoMessageItem key={i} {...sharedProps} />;
           }
 
