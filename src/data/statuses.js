@@ -10,14 +10,14 @@ const statuses = [
     color: "lime",
   },
   {
-    label: "Pasport kutilmoqda",
-    value: "waitingForPassport",
-    color: "yellow",
-  },
-  {
     label: "To'lov kutilmoqda",
     value: "waitingForPayment",
     color: "amber",
+  },
+  {
+    label: "Pasport kutilmoqda",
+    value: "waitingForPassport",
+    color: "yellow",
   },
   {
     label: "Chipta berilmoqda",
