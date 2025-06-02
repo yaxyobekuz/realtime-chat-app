@@ -5,6 +5,10 @@ const endpoints = {
   updateChatField: (id, fieldName) => {
     return `/api/chats/chat/${id}/update/${fieldName}`;
   },
+
+  // Payments
+  getPayments: "/api/payments",
+  createPayment: "/api/payments/new",
 };
 
 export default endpoints;
