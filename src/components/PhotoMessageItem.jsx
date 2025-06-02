@@ -12,22 +12,16 @@ import {
   ContextMenuTrigger,
 } from "./ui/context-menu";
 
-// Toast
-import { toast } from "@/notification/toast";
-
-// Services
-import chatService from "@/api/services/chatService";
-
 // Icons
 import filesIcon from "../assets/icons/files.svg";
 import paymentIcon from "../assets/icons/payment.svg";
 
-// Helpers
-import { formatTime, getBubbleBorderRadius } from "../utils/helpers";
-
 // Redux (Store)
 import { useDispatch } from "react-redux";
-import { updateSingleChatInStore } from "@/store/features/chatsSlice";
+import { openModal } from "@/store/features/modalsSlice";
+
+// Helpers
+import { formatTime, getBubbleBorderRadius } from "../utils/helpers";
 
 const PhotoMessageItem = ({
   photo,
@@ -52,28 +46,12 @@ const PhotoMessageItem = ({
     nextIsAdminMessage
   );
 
-  const { chatId: messageGroupId } = useParams();
-
-  const updateChatStatus = (fieldValue, fieldLabel) => {
-    if (isLoading) return;
-
-    setIsLoading(true);
-
-    toast.promise(
-      chatService
-        .updateChatField(messageGroupId, fieldValue, id)
-        .then((res) => {
-          const { fieldName, updatedId } = res?.data || {};
-          const payload = { id: chatId, [fieldName]: updatedId };
-          dispatch(updateSingleChatInStore(payload));
-        })
-        .finally(() => setIsLoading(false)),
-      {
-        error: `${fieldLabel} ma'lumoti yangilanmadi`,
-        success: `${fieldLabel} ma'lumoti yangilandi`,
-        loading: `${fieldLabel} ma'lumoti yangilanmoqda...`,
-      }
-    );
+  const handleOpenModal = (modal) => {
+    const payload = {
+      name: modal,
+      data: { chatId, messageId: id, photoId: photo._id },
+    };
+    setTimeout(() => dispatch(openModal(payload)), 0);
   };
 
   return (
@@ -124,22 +102,22 @@ const PhotoMessageItem = ({
         {/* Passport */}
         <ContextMenuItem>
           <button
+            onClick={() => handleOpenModal("passport")}
             className="flex items-center gap-4 px-2 py-1.5"
-            onClick={() => updateChatStatus("passportId", "Passport")}
           >
             <Icon src={filesIcon} alt="Pasport ma'lumotlari" />
-            <span>Pasport deb belgilash</span>
+            <span className="text-base">Pasport deb belgilash</span>
           </button>
         </ContextMenuItem>
 
         {/* Payment */}
         <ContextMenuItem>
           <button
+            onClick={() => handleOpenModal("payment")}
             className="flex items-center gap-4 px-2 py-1.5"
-            onClick={() => updateChatStatus("paymentId", "To'lov")}
           >
             <Icon src={paymentIcon} alt="To'lov ma'lumotlari" />
-            <span>To'lov deb belgilash</span>
+            <span className="text-base">To'lov deb belgilash</span>
           </button>
         </ContextMenuItem>
       </ContextMenuContent>
