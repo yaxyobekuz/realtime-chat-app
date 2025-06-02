@@ -39,6 +39,7 @@ import chatService from "@/api/services/chatService";
 // Redux (Store)
 import { useDispatch } from "react-redux";
 import { updateSingleChatInStore } from "@/store/features/chatsSlice";
+
 // Body component
 const Body = ({ chatId, closeDialog, defaultValue }) => {
   const dispatch = useDispatch();

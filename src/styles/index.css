@@ -67,6 +67,15 @@
   body {
     @apply bg-neutral-50 font-roboto text-base text-brand-dark font-normal;
   }
+
+  input,
+  textarea {
+    @apply w-full h-11 px-4 rounded-lg border-2 outline-none transition-colors duration-200 focus:border-blue-500;
+  }
+
+  textarea {
+    @apply py-2 min-h-20 max-h-40;
+  }
 }
 
 /* --- Components --- */

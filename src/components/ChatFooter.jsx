@@ -33,8 +33,6 @@ const ChatFooter = ({ isLoading }) => {
       if (!text || isLoading) return;
 
       socket.emit("sendMessage", { text, chatId }, (res) => {
-        console.log(res);
-
         dispatch(
           addNewMessageToStore({
             chatId,
@@ -166,7 +164,7 @@ const ChatFooter = ({ isLoading }) => {
           placeholder="Xabar"
           onKeyDown={handleKeyDown}
           onChange={handleInputChange}
-          className="size-full transition-[width] duration-300 outline-none"
+          className="h-full border-none rounded-none p-0 transition-[width] duration-300"
         />
 
         <button
