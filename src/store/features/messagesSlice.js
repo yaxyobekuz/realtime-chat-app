@@ -23,6 +23,17 @@ export const messagesSlice = createSlice({
       state.data[chatId].messages = data;
     },
 
+    updateMessageInStore: (state, { payload }) => {
+      const { messagesId, messageId, data } = payload;
+      const messageList = state.data[messagesId]?.messages;
+      if (!messageList) return console.log("Messages is not defined");
+
+      const message = messageList.find(({ _id }) => _id === messageId);
+      if (!message) return console.log("Message is not defined");
+
+      Object.assign(message, data);
+    },
+
     setChatMessagesLoading: (state, { payload }) => {
       state.isLoading[payload.id] = payload.value ?? false;
     },
@@ -35,6 +46,7 @@ export const messagesSlice = createSlice({
 
 // Export actions
 export const {
+  updateMessageInStore,
   setChatMessagesError,
   addNewMessageToStore,
   setChatMessagesLoading,
