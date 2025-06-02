@@ -23,7 +23,7 @@ const ChatBody = () => {
   useEffect(() => {
     const container = chatContainerRef.current;
     if (container) container.scrollTop = container.scrollHeight;
-  }, [messages]);
+  }, [messages?.length]);
 
   // Animate and scroll to hashed message
   useEffect(() => {

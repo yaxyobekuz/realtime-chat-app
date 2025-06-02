@@ -19,13 +19,7 @@ const paymentService = {
   },
 
   createPayment: async (data) => {
-    try {
-      const res = await api.post(endpoints.createPayment, data);
-      if (!res.ok) throw new Error("To'lovni yaratib bo'lmadi");
-      return res;
-    } catch (error) {
-      return formatErrorMessage(error);
-    }
+    return await api.post(endpoints.createPayment, data);
   },
 };
 

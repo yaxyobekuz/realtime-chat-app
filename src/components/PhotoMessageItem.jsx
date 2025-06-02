@@ -29,6 +29,7 @@ const PhotoMessageItem = ({
   isAdmin,
   caption,
   createdAt,
+  paymentId,
   isLastMessage,
   isFirstMessage,
   prevIsAdminMessage,
@@ -111,15 +112,17 @@ const PhotoMessageItem = ({
         </ContextMenuItem>
 
         {/* Payment */}
-        <ContextMenuItem>
-          <button
-            onClick={() => handleOpenModal("payment")}
-            className="flex items-center gap-4 px-2 py-1.5"
-          >
-            <Icon src={paymentIcon} alt="To'lov ma'lumotlari" />
-            <span className="text-base">To'lov deb belgilash</span>
-          </button>
-        </ContextMenuItem>
+        {!paymentId && (
+          <ContextMenuItem>
+            <button
+              onClick={() => handleOpenModal("payment")}
+              className="flex items-center gap-4 px-2 py-1.5"
+            >
+              <Icon src={paymentIcon} alt="To'lov ma'lumotlari" />
+              <span className="text-base">To'lov deb belgilash</span>
+            </button>
+          </ContextMenuItem>
+        )}
       </ContextMenuContent>
     </ContextMenu>
   );
