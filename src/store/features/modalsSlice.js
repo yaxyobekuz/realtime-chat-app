@@ -28,11 +28,17 @@ export const modalsSlice = createSlice({
         state[key].isOpen = false;
       }
     },
+
+    setModalLoading: (state, action) => {
+      const { name, value } = action.payload;
+      if (state[name]) state[name].isLoading = value;
+    },
   },
 });
 
 // Export actions
-export const { closeAllModals, closeModal, openModal } = modalsSlice.actions;
+export const { closeAllModals, closeModal, openModal, setModalLoading } =
+  modalsSlice.actions;
 
 // Export reducer
 export default modalsSlice.reducer;
