@@ -27,7 +27,7 @@ import useModal from "@/hooks/useModal";
 import useMediaQuery from "@/hooks/useMediaQuery";
 
 // Services
-import paymentService from "@/api/services/paymentService";
+import passportService from "@/api/services/passportService";
 
 // Redux (Store)
 import { useDispatch, useSelector } from "react-redux";
@@ -115,8 +115,8 @@ const Body = ({ close, formData, isLoading, setLoading }) => {
     formData = { ...formData, description };
 
     toast.promise(
-      paymentService
-        .createPayment(formData)
+      passportService
+        .createPassport(formData)
         .then(({ data }) => {
           dispatch(
             updateMessageInStore({

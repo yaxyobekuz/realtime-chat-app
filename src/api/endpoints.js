@@ -12,7 +12,7 @@ const endpoints = {
 
   // Passports
   getPassports: "/api/passports",
-  createPayment: "/api/passports/new",
+  createPassport: "/api/passports/new",
 };
 
 export default endpoints;
