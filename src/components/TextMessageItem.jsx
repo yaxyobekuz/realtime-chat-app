@@ -1,8 +1,9 @@
-import { getBubbleBorderRadius } from "../utils/helpers";
+import { formatTime, getBubbleBorderRadius } from "../utils/helpers";
 
 const TextMessageItem = ({
   text,
   isAdmin,
+  createdAt,
   isLastMessage,
   isFirstMessage,
   prevIsAdminMessage,
@@ -17,7 +18,7 @@ const TextMessageItem = ({
   ).md;
 
   return (
-    <li className="flex py-1 px-4">
+    <li className="flex relative pt-1 pb-2 px-4">
       <div
         className={`${
           isAdmin
@@ -27,6 +28,15 @@ const TextMessageItem = ({
       >
         <span className="break-words">{text}</span>
       </div>
+
+      {/* Timestamp */}
+      <span
+        className={`${
+          isAdmin ? "right-7" : "left-7"
+        } absolute -bottom-3.5 text-sm`}
+      >
+        {formatTime(createdAt)}
+      </span>
     </li>
   );
 };
