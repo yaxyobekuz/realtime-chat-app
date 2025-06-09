@@ -1,12 +1,15 @@
-import React from "react";
-
 const Icon = ({
   src,
+  style,
   size = 24,
-  style = {},
   alt = "icon",
-  className = "size-6",
+  className = "",
+  ...restProps
 }) => {
+  // Combine size-based className with custom className
+  const sizeClass = `w-[${size}px] h-[${size}px]`;
+  const finalClassName = className ? `${sizeClass} ${className}` : sizeClass;
+
   return (
     <img
       src={src}
@@ -14,7 +17,8 @@ const Icon = ({
       width={size}
       height={size}
       style={style}
-      className={className}
+      {...restProps}
+      className={finalClassName}
     />
   );
 };
