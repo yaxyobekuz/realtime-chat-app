@@ -7,7 +7,6 @@ import quickReplies from "@/data/quickReplies";
 
 // Redux (Store)
 import { useDispatch } from "react-redux";
-import { addNewMessageToStore } from "@/store/features/messagesSlice";
 
 // Socket
 import { io } from "socket.io-client";
@@ -31,16 +30,7 @@ const ChatFooter = ({ isLoading }) => {
       e.preventDefault();
       const text = inputValue.trim();
       if (!text || isLoading) return;
-
-      socket.emit("sendMessage", { text, chatId }, (res) => {
-        dispatch(
-          addNewMessageToStore({
-            chatId,
-            message: { type: "text", text, isAdmin: true },
-          })
-        );
-      });
-
+      socket.emit("sendMessage", { text, chatId });
       setInputValue("");
     },
     [chatId, dispatch, inputValue, isLoading]
