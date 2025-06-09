@@ -18,7 +18,7 @@ const TextMessageItem = ({
   ).md;
 
   return (
-    <li className="flex relative pt-1 pb-2 px-4">
+    <li className="flex relative pt-1 pb-4 px-4">
       <div
         className={`${
           isAdmin
@@ -33,7 +33,7 @@ const TextMessageItem = ({
       <span
         className={`${
           isAdmin ? "right-7" : "left-7"
-        } absolute -bottom-3.5 text-sm`}
+        } absolute -bottom-[5px] text-sm`}
       >
         {formatTime(createdAt)}
       </span>
