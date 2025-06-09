@@ -28,7 +28,7 @@ const PhotoMessageContextMenu = () => {
 
   const handleOpenModal = (modal) => {
     close();
-    const payload = { chatId, messageId, photoId, passportId };
+    const payload = { chatId, messageId, photoId, passportId, paymentId };
     setTimeout(() => open(payload, modal), 0);
   };
 
