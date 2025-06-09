@@ -1,7 +1,14 @@
 import { useParams } from "react-router-dom";
 
+// Components
+import Icon from "./Icon";
+
 // Hooks
 import useModal from "@/hooks/useModal";
+
+// Icons
+import filesIcon from "../assets/icons/mini/files.svg";
+import paymentIcon from "../assets/icons/mini/payment.svg";
 
 // Helpers
 import { formatTime, getBubbleBorderRadius } from "../utils/helpers";
@@ -44,7 +51,11 @@ const PhotoMessageItem = ({
   };
 
   return (
-    <li onContextMenu={handleOpenContextMenu} id={id} className="py-1 px-4">
+    <li
+      onContextMenu={handleOpenContextMenu}
+      id={id}
+      className="group py-1 px-4"
+    >
       <div
         className={`${
           isAdmin
@@ -72,11 +83,28 @@ const PhotoMessageItem = ({
           </div>
 
           {/* Payment badge */}
-          <div className="absolute top-2 right-2 bg-black/65 px-1.5 py-0.5 rounded-full">
-            <span className="text-sm leading-none text-white">
-              {formatTime(createdAt)}
-            </span>
-          </div>
+          {paymentId ? (
+            <div className="hidden absolute top-2 left-2 bg-black/65 px-1.5 py-0.5 rounded-lg group-hover:inline-block">
+              <Icon
+                size={20}
+                alt="To'lov"
+                src={paymentIcon}
+                className="size-5"
+              />
+            </div>
+          ) : null}
+
+          {/* Passport badge */}
+          {passportId ? (
+            <div className="hidden absolute top-2 left-2 bg-black/65 px-1.5 py-0.5 rounded-lg group-hover:inline-block">
+              <Icon
+                size={20}
+                alt="Passport"
+                src={filesIcon}
+                className="size-5"
+              />
+            </div>
+          ) : null}
         </div>
 
         {/* Caption */}
