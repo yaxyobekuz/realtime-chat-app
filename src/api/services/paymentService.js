@@ -18,6 +18,10 @@ const paymentService = {
     }
   },
 
+  getPayment: async (id) => {
+    return await api.get(endpoints.getPayment(id));
+  },
+
   createPayment: async (data) => {
     return await api.post(endpoints.createPayment, data);
   },
