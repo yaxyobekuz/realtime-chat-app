@@ -5,6 +5,7 @@ import { Outlet } from "react-router-dom";
 import Dot from "@/components/Dot";
 import Sidebar from "@/components/Sidebar";
 import CreatePaymentModal from "@/components/CreatePaymentModal";
+import PhotoMessageContextMenu from "@/components/PhotoMessageContextMenu";
 
 const ChatLayout = () => {
   return (
@@ -22,8 +23,9 @@ const ChatLayout = () => {
         </div>
       </div>
 
-      {/* Modals */}
+      {/*  */}
       <CreatePaymentModal />
+      <PhotoMessageContextMenu />
     </>
   );
 };

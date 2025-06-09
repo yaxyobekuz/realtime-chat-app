@@ -127,9 +127,6 @@ const Body = ({ close, formData, isLoading, setLoading }) => {
             })
           );
         })
-        .catch((err) => {
-          console.log(err);
-        })
         .finally(() => setLoading(false)),
       {
         error: "To'lov ma'lumotlari yaratilinmadi",
