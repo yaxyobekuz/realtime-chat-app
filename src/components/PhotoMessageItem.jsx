@@ -51,11 +51,7 @@ const PhotoMessageItem = ({
   };
 
   return (
-    <li
-      onContextMenu={handleOpenContextMenu}
-      id={id}
-      className="group py-1 px-4"
-    >
+    <li onContextMenu={handleOpenContextMenu} id={id} className="py-1 px-4">
       <div
         className={`${
           isAdmin
@@ -84,7 +80,7 @@ const PhotoMessageItem = ({
 
           {/* Payment badge */}
           {paymentId ? (
-            <div className="hidden absolute top-2 left-2 bg-black/65 px-1.5 py-0.5 rounded-lg group-hover:inline-block">
+            <div className="absolute top-2 left-2 bg-black/65 px-1.5 py-0.5 rounded-lg">
               <Icon
                 size={20}
                 alt="To'lov"
@@ -96,7 +92,7 @@ const PhotoMessageItem = ({
 
           {/* Passport badge */}
           {passportId ? (
-            <div className="hidden absolute top-2 left-2 bg-black/65 px-1.5 py-0.5 rounded-lg group-hover:inline-block">
+            <div className="absolute top-2 left-2 bg-black/65 px-1.5 py-0.5 rounded-lg">
               <Icon
                 size={20}
                 alt="Passport"

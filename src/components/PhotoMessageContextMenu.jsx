@@ -76,9 +76,9 @@ const PhotoMessageContextMenu = () => {
       return [
         {
           alt: "To'lov",
-          icon: paymentIcon,
+          icon: filesIcon,
           key: "passport-details",
-          label: "To'lov ma'lumotlari",
+          label: "Pasport ma'lumotlari",
           onSelect: () => handleOpenModal("passportDetails"),
         },
         {
@@ -86,7 +86,7 @@ const PhotoMessageContextMenu = () => {
           alt: "Chiqitdon",
           key: "delete-passport",
           textColor: "text-red-500",
-          label: "To'lovni o'chirish",
+          label: "Pasportni o'chirish",
           onSelect: () => handleOpenModal("deletePassportDetails"),
         },
       ];
