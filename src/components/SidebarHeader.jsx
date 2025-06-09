@@ -1,6 +1,3 @@
-import React from "react";
-import { Link } from "react-router-dom";
-
 const SidebarHeader = () => {
   return (
     <div className="flex items-center justify-between gap-1.5 w-full h-16 pl-5">
