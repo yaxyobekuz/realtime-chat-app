@@ -11,8 +11,8 @@ const useModal = (name) => {
     (state) => state.modals[name] || { isOpen: false, data: null }
   );
 
-  const open = (data = null) => {
-    dispatch(openModal({ name, data }));
+  const open = (data = null, modal = name) => {
+    dispatch(openModal({ name: modal, data }));
   };
 
   const close = () => {

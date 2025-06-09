@@ -3,7 +3,15 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialModalData = { isOpen: false, data: null };
 
 // Initial state
-const initialState = { payment: initialModalData };
+const initialState = {
+  payment: initialModalData,
+  passport: initialModalData,
+  paymentDetails: initialModalData,
+  passportDetails: initialModalData,
+  deletePaymentDetails: initialModalData,
+  deletePassportDetails: initialModalData,
+  photoMessageContextMenu: initialModalData,
+};
 
 export const modalsSlice = createSlice({
   initialState,
