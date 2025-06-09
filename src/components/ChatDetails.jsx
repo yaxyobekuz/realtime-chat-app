@@ -9,13 +9,13 @@ import StatusDrawer from "./StatusDrawer";
 import { formatDate, formatTime } from "../utils/helpers";
 
 // Icons
-import filesIcon from "../assets/icons/files.svg";
-import trashIcon from "../assets/icons/trash.svg";
-import paymentIcon from "../assets/icons/payment.svg";
-import messageIcon from "../assets/icons/message.svg";
-import handIcon from "../assets/icons/hand-raised.svg";
-import pencilIcon from "../assets/icons/pencil-square.svg";
-import phoneIcon from "../assets/icons/phone-arrow-up.svg";
+import filesIcon from "../assets/icons/outline/files.svg";
+import trashIcon from "../assets/icons/outline/trash.svg";
+import paymentIcon from "../assets/icons/outline/payment.svg";
+import messageIcon from "../assets/icons/outline/message.svg";
+import handIcon from "../assets/icons/outline/hand-raised.svg";
+import pencilIcon from "../assets/icons/outline/pencil-square.svg";
+import phoneIcon from "../assets/icons/outline/phone-arrow-up.svg";
 
 // Divider line component
 const Divider = () => <div className="w-full h-2 bg-neutral-50" />;

@@ -7,9 +7,9 @@ import Icon from "./Icon";
 import useModal from "@/hooks/useModal";
 
 // Icons
-import filesIcon from "../assets/icons/files.svg";
-import trashIcon from "../assets/icons/trash.svg";
-import paymentIcon from "../assets/icons/payment.svg";
+import filesIcon from "../assets/icons/outline/files.svg";
+import trashIcon from "../assets/icons/outline/trash.svg";
+import paymentIcon from "../assets/icons/outline/payment.svg";
 
 // Dropdown menu components
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";

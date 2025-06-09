@@ -30,7 +30,7 @@ import { toast } from "@/notification/toast";
 import useMediaQuery from "@/hooks/useMediaQuery";
 
 // Images
-import reloadIcon from "../assets/icons/reload.svg";
+import reloadIcon from "../assets/icons/outline/reload.svg";
 
 // Data
 import statuses from "@/data/statuses";
