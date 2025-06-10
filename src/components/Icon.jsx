@@ -3,13 +3,9 @@ const Icon = ({
   style,
   size = 24,
   alt = "icon",
-  className = "",
+  className = "size-6",
   ...restProps
 }) => {
-  // Combine size-based className with custom className
-  const sizeClass = `w-[${size}px] h-[${size}px]`;
-  const finalClassName = className ? `${sizeClass} ${className}` : sizeClass;
-
   return (
     <img
       src={src}
@@ -18,7 +14,7 @@ const Icon = ({
       height={size}
       style={style}
       {...restProps}
-      className={finalClassName}
+      className={className}
     />
   );
 };

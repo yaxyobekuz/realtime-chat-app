@@ -59,7 +59,7 @@ const PhotoMessageItem = ({
             : "bg-white mr-auto"
         } ${
           bubbleBorderRadius.md
-        } w-[310px] border p-2.5 rounded-[20px] space-y-2 leading-5 shadow shadow-neutral-200/70`}
+        } w-[310px] border p-2.5 rounded-20 space-y-2 leading-5 shadow shadow-neutral-200/70`}
       >
         {/* Photo */}
         <div className="relative">
