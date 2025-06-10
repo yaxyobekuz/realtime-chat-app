@@ -6,6 +6,9 @@ import { toast } from "@/notification/toast";
 // Components
 import PaymentsSkeleton from "./skeleton/Payments";
 
+// Hooks
+import useImageViewer from "@/hooks/useImageViewer";
+
 // Redux (Store)
 import {
   setPaymentsLoading,
@@ -56,9 +59,12 @@ const PaymentsList = () => {
 export default PaymentsList;
 
 const List = ({ payments }) => {
+  const { viewImage } = useImageViewer();
+
   return (
     <ul className="grid grid-cols-6 gap-5 max-h-[calc(100%-64px)] overflow-y-auto p-5">
       {payments.map(({ _id: id, photo, createdAt, user, amount }) => {
+        const url = photo.url;
         return (
           <li key={id} className="w-full bg-white p-2.5 rounded-20 border">
             {/* Image */}
@@ -69,6 +75,7 @@ const List = ({ payments }) => {
                 loading="lazy"
                 src={photo.url}
                 alt="To'lov cheki"
+                onClick={() => viewImage({ url, alt: "To'lov cheki" })}
                 className="w-full h-auto aspect-square bg-neutral-100 rounded-xl"
               />
 
