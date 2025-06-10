@@ -11,12 +11,13 @@ import {
 // Pages
 import Chat from "./pages/Chat";
 import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
+import Payments from "./pages/Payments";
 
 // Toaster
 import { Toaster } from "react-hot-toast";
 
 // Layouts
-import NotFound from "./pages/NotFound";
 import MainLayout from "./layouts/MainLayout";
 import ChatLayout from "./layouts/ChatLayout";
 
@@ -29,6 +30,8 @@ const App = () => {
         <Route path="chats" element={<ChatLayout />}>
           <Route path="chat/:chatId" element={<Chat />} />
         </Route>
+
+        <Route path="payments" element={<Payments />} />
 
         <Route path="*" element={<NotFound />} />
       </Route>
