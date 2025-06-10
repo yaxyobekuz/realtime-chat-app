@@ -5,6 +5,9 @@ import { useSelector } from "react-redux";
 import Icon from "./Icon";
 import StatusDrawer from "./StatusDrawer";
 
+// Hooks
+import useImageViewer from "@/hooks/useImageViewer";
+
 // Helpers
 import { formatDate, formatTime } from "../utils/helpers";
 
@@ -50,6 +53,8 @@ const ChatDetails = () => {
   const { user = {}, createdAt, passportId, paymentId } = currentChat;
   const currentChatStatus = allChats?.find(({ id }) => id === chatId)?.status;
   const { photo, firstName, username, phone } = user;
+
+  const { viewImage } = useImageViewer();
 
   // Display skeleton loader while chat data is loading
   if (isLoading[chatId]) {
@@ -101,8 +106,11 @@ const ChatDetails = () => {
             width={80}
             height={80}
             src={photo.url}
-            alt="User avatar"
+            alt={`${firstName} profil rasmi`}
             className="shrink-0 size-20 bg-neutral-50 rounded-full object-cover"
+            onClick={() =>
+              viewImage({ url: photo.url, alt: `${firstName} profil rasmi` })
+            }
           />
         ) : (
           <div className="flex items-center justify-center shrink-0 size-20 bg-gradient-to-tr from-green-300 to-green-300 rounded-full">

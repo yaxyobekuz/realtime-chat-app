@@ -5,6 +5,7 @@ import Icon from "./Icon";
 
 // Hooks
 import useModal from "@/hooks/useModal";
+import useImageViewer from "@/hooks/useImageViewer";
 
 // Icons
 import filesIcon from "../assets/icons/mini/files.svg";
@@ -26,6 +27,7 @@ const PhotoMessageItem = ({
   prevIsAdminMessage,
   nextIsAdminMessage,
 }) => {
+  const { viewImage } = useImageViewer();
   const { chatId: currentChatId } = useParams();
   const chatId = Number(currentChatId) || false;
   const { open } = useModal("photoMessageContextMenu");
@@ -50,6 +52,14 @@ const PhotoMessageItem = ({
     });
   };
 
+  const alt = (() => {
+    if (paymentId) return "To'lov rasmi";
+    else if (passportId) return "Passport rasmi";
+    else return "Nomsiz rasm";
+  })();
+
+  const handleViewImage = () => viewImage({ url: photo.url, alt });
+
   return (
     <li onContextMenu={handleOpenContextMenu} id={id} className="py-1 px-4">
       <div
@@ -68,6 +78,7 @@ const PhotoMessageItem = ({
             height={288}
             loading="lazy"
             src={photo.url}
+            onClick={handleViewImage}
             className={`${bubbleBorderRadius.sm} size-72 bg-neutral-50 object-cover`}
           />
 
