@@ -128,3 +128,11 @@ aside a.active .messages-count-badge {
 .sidebar-tabs-scroll::-webkit-scrollbar-thumb {
   @apply bg-blue-500 rounded-full;
 }
+
+/* Clears the ‘X’ from search input */
+:is(input[type="search"])::-webkit-search-decoration,
+::-webkit-search-cancel-button,
+::-webkit-search-results-button,
+::-webkit-search-results-decoration {
+  display: none;
+}

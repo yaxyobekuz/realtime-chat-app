@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 // Initial state
-const initialState = { data: [], hasError: false, isLoading: false };
+const initialState = { data: [], hasError: false, isLoading: true };
 
 export const paymentsSlice = createSlice({
   initialState,
