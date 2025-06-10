@@ -13,6 +13,7 @@ import Chat from "./pages/Chat";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Payments from "./pages/Payments";
+import Passports from "./pages/Passports";
 
 // Toaster
 import { Toaster } from "react-hot-toast";
@@ -32,6 +33,7 @@ const App = () => {
         </Route>
 
         <Route path="payments" element={<Payments />} />
+        <Route path="passports" element={<Passports />} />
 
         <Route path="*" element={<NotFound />} />
       </Route>
