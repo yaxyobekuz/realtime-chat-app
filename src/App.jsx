@@ -8,14 +8,6 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 
-// Pages
-import Chat from "./pages/Chat";
-import Home from "./pages/Home";
-import Tickets from "./pages/Tickets";
-import NotFound from "./pages/NotFound";
-import Payments from "./pages/Payments";
-import Passports from "./pages/Passports";
-
 // Toaster
 import { Toaster } from "react-hot-toast";
 
@@ -23,21 +15,39 @@ import { Toaster } from "react-hot-toast";
 import MainLayout from "./layouts/MainLayout";
 import ChatLayout from "./layouts/ChatLayout";
 
+// Pages
+import Chat from "./pages/Chat";
+import Home from "./pages/Home";
+import Tickets from "./pages/Tickets";
+import NotFound from "./pages/NotFound";
+import Payments from "./pages/Payments";
+import Passports from "./pages/Passports";
+import UserTickets from "./pages/UserTickets";
+
 const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<MainLayout />}>
+        {/* Home */}
         <Route index element={<Home />} />
 
+        {/* 404 */}
+        <Route path="*" element={<NotFound />} />
+
+        {/* Payments */}
+        <Route path="payments" element={<Payments />} />
+
+        {/* Chats */}
         <Route path="chats" element={<ChatLayout />}>
           <Route path="chat/:chatId" element={<Chat />} />
         </Route>
 
-        <Route path="tickets" element={<Tickets />} />
-        <Route path="payments" element={<Payments />} />
+        {/* Passports */}
         <Route path="passports" element={<Passports />} />
 
-        <Route path="*" element={<NotFound />} />
+        {/* Tickets */}
+        <Route path="tickets" element={<Tickets />} />
+        <Route path="tickets/user/:userId" element={<UserTickets />} />
       </Route>
     ),
     { future: { v7_relativeSplatPath: true } }
