@@ -18,6 +18,10 @@ const passportService = {
     }
   },
 
+  getUserPassports: async (userId) => {
+    return await api.get(endpoints.getUserPassports(userId));
+  },
+
   createPassport: async (data) => {
     return await api.post(endpoints.createPassport, data);
   },
