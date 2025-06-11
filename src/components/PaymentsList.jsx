@@ -76,7 +76,7 @@ const List = ({ payments }) => {
                 src={photo.url}
                 alt="To'lov cheki"
                 onClick={() => viewImage({ url, alt: "To'lov cheki" })}
-                className="w-full h-auto aspect-square bg-neutral-100 rounded-xl"
+                className="w-full h-auto aspect-square object-cover bg-neutral-100 rounded-xl"
               />
 
               <div className="flex gap-1.5 absolute bottom-2 right-2">

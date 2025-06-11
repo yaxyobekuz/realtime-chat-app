@@ -77,7 +77,7 @@ const List = ({ passports }) => {
                 src={photo.url}
                 alt="Pasport rasmi"
                 onClick={() => viewImage({ url, alt: "Pasport rasmi" })}
-                className="w-full h-auto aspect-square bg-neutral-100 rounded-xl"
+                className="w-full h-auto aspect-square object-cover bg-neutral-100 rounded-xl"
               />
 
               <div className="flex gap-1.5 absolute bottom-2 right-2">

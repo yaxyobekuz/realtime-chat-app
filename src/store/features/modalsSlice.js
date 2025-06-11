@@ -26,8 +26,8 @@ export const modalsSlice = createSlice({
     closeModal: (state, action) => {
       const name = action.payload;
       if (state[name]) {
-        state[name].data = null;
         state[name].isOpen = false;
+        setTimeout(() => (state[name].data = null), 150);
       }
     },
 
