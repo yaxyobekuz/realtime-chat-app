@@ -48,7 +48,7 @@ const Input = ({
   return (
     <div className={`space-y-2 ${className}`}>
       {label && (
-        <label htmlFor={name} className="font-medium text-gray-700">
+        <label htmlFor={name} className="font-medium text-neutral-700">
           {label} {required && <span className="text-blue-500">*</span>}
         </label>
       )}
