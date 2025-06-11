@@ -1,12 +1,20 @@
 const endpoints = {
-  // Passports
-  getPassports: "/api/passports",
-  createPassport: "/api/passports/new",
+  // Tickets
+  getTickets: "/api/tickets",
+  createTicket: "/api/tickets/new",
+  getTicket: (id) => `/api/tickets/ticket/${id}`,
+  getUserTickets: (userId) => `/api/tickets/user/${userId}`,
 
   // Payments
   getPayments: "/api/payments",
   createPayment: "/api/payments/new",
   getPayment: (id) => `/api/payments/payment/${id}`,
+  getUserPayments: (userId) => `/api/payments/user/${userId}`,
+
+  // Passports
+  getPassports: "/api/passports",
+  createPassport: "/api/passports/new",
+  getUserPassports: (userId) => `/api/passports/user/${userId}`,
 
   // Chats
   getChats: "/api/chats",
