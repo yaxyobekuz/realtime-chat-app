@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialModalData = { isOpen: false, data: null };
+const initialModalData = { isOpen: false, data: null, isLoading: false };
 
 // Initial state
 const initialState = {
   payment: initialModalData,
   passport: initialModalData,
   imageViewer: initialModalData,
+  createTicket: initialModalData,
   paymentDetails: initialModalData,
   passportDetails: initialModalData,
   deletePaymentDetails: initialModalData,
@@ -25,10 +26,7 @@ export const modalsSlice = createSlice({
 
     closeModal: (state, action) => {
       const name = action.payload;
-      if (state[name]) {
-        state[name].isOpen = false;
-        setTimeout(() => (state[name].data = null), 150);
-      }
+      if (state[name]) state[name].isOpen = false;
     },
 
     closeAllModals: (state) => {

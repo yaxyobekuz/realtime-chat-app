@@ -7,9 +7,10 @@ import {
 
 const useModal = (name) => {
   const dispatch = useDispatch();
-  const modal = useSelector(
-    (state) => state.modals[name] || { isOpen: false, data: null }
-  );
+  const modal = useSelector((state) => state.modals[name]) || {
+    data: null,
+    isOpen: false,
+  };
 
   const open = (data = null, modal = name) => {
     dispatch(openModal({ name: modal, data }));
