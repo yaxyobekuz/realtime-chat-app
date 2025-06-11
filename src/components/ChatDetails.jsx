@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 // Components
@@ -6,6 +6,7 @@ import Icon from "./Icon";
 import StatusDrawer from "./StatusDrawer";
 
 // Hooks
+import useModal from "@/hooks/useModal";
 import useImageViewer from "@/hooks/useImageViewer";
 
 // Helpers
@@ -14,6 +15,7 @@ import { formatDate, formatTime } from "../utils/helpers";
 // Icons
 import filesIcon from "../assets/icons/outline/files.svg";
 import trashIcon from "../assets/icons/outline/trash.svg";
+import ticketIcon from "../assets/icons/outline/ticket.svg";
 import paymentIcon from "../assets/icons/outline/payment.svg";
 import messageIcon from "../assets/icons/outline/message.svg";
 import handIcon from "../assets/icons/outline/hand-raised.svg";
@@ -52,8 +54,9 @@ const ChatDetails = () => {
   const currentChat = allChats.find(({ id }) => id == chatId) || {};
   const { user = {}, createdAt, passportId, paymentId } = currentChat;
   const currentChatStatus = allChats?.find(({ id }) => id === chatId)?.status;
-  const { photo, firstName, username, phone } = user;
+  const { photo, firstName, username, phone, _id: userId } = user;
 
+  const { open: openModal } = useModal();
   const { viewImage } = useImageViewer();
 
   // Display skeleton loader while chat data is loading
@@ -153,6 +156,14 @@ const ChatDetails = () => {
         />
 
         <SidebarLink
+          isPage={true}
+          isActive={true}
+          icon={ticketIcon}
+          label="Chiptalar"
+          href={`/tickets/user/${userId}`}
+        />
+
+        <SidebarLink
           external
           icon={messageIcon}
           isActive={!!username}
@@ -173,6 +184,12 @@ const ChatDetails = () => {
       {/* User Actions */}
       <div className="py-2">
         <ActionButton icon={pencilIcon} label="Ma'lumotlarni o'zgartirish" />
+
+        <ActionButton
+          icon={ticketIcon}
+          label="Chipta yaratish"
+          onClick={() => openModal({ chatId, user }, "createTicket")}
+        />
 
         <StatusDrawer
           chatId={chatId}
@@ -197,10 +214,30 @@ const ChatDetails = () => {
 };
 
 // Reusable sidebar link component
-const SidebarLink = ({ icon, label, href, isActive, external = false }) => {
-  const Tag = external ? "a" : "a";
+const SidebarLink = ({
+  icon,
+  href,
+  label,
+  isActive,
+  isPage = false,
+  external = false,
+}) => {
+  if (isPage) {
+    return (
+      <Link
+        to={href}
+        className={`${
+          isActive ? "hover:bg-neutral-50" : "opacity-30 cursor-not-allowed"
+        } flex items-center gap-4 h-12 px-5 transition-colors duration-300`}
+      >
+        <Icon src={icon} alt={label} />
+        <span>{label}</span>
+      </Link>
+    );
+  }
+
   return (
-    <Tag
+    <a
       href={href}
       target={external ? "_blank" : undefined}
       className={`${
@@ -209,13 +246,14 @@ const SidebarLink = ({ icon, label, href, isActive, external = false }) => {
     >
       <Icon src={icon} alt={label} />
       <span>{label}</span>
-    </Tag>
+    </a>
   );
 };
 
 // Reusable action button component
-const ActionButton = ({ icon, label, className = "" }) => (
+const ActionButton = ({ icon, label, className = "", onClick }) => (
   <button
+    onClick={onClick}
     className={`flex items-center gap-4 w-full h-12 px-5 transition-colors duration-300 hover:bg-neutral-50 ${className}`}
   >
     <Icon src={icon} alt={label} />

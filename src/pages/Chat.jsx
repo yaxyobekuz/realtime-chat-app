@@ -29,6 +29,9 @@ import {
 } from "@/store/features/messagesSlice";
 import { useDispatch, useSelector } from "react-redux";
 
+// Modals
+import CreateTicketModal from "@/components/CreateTicketModal";
+
 const Chat = () => {
   const dispatch = useDispatch();
   const { chatId: currentChatId } = useParams();
@@ -69,17 +72,22 @@ const Chat = () => {
   if (hasError[chatId]) return "Xatolik yuz berdi!";
 
   return (
-    <div className="flex size-full">
-      {/* Chat Area */}
-      <div className="max-w-[calc(100%-440px)] size-full">
-        <ChatHeader />
-        <ChatBody />
-        <ChatFooter isLoading={isLoading[chatId]} />
+    <>
+      <div className="flex size-full">
+        {/* Chat Area */}
+        <div className="max-w-[calc(100%-440px)] size-full">
+          <ChatHeader />
+          <ChatBody />
+          <ChatFooter isLoading={isLoading[chatId]} />
+        </div>
+
+        {/* Chat Details */}
+        <ChatDetails />
       </div>
 
-      {/* Chat Details */}
-      <ChatDetails />
-    </div>
+      {/* Modals */}
+      <CreateTicketModal />
+    </>
   );
 };
 
