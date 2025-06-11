@@ -76,6 +76,14 @@
   textarea {
     @apply py-2 min-h-20 max-h-40;
   }
+
+  table th {
+    @apply font-semibold;
+  }
+
+  table td {
+    @apply text-center;
+  }
 }
 
 /* --- Components --- */
