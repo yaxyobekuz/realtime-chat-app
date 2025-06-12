@@ -8,17 +8,16 @@ import { formatDate } from "@/utils/helpers";
 import { toast } from "@/notification/toast";
 
 // Components
-import Icon from "./Icon";
 import TicketSkeleton from "./skeleton/Ticket";
 
 // Hooks
 import useImageViewer from "@/hooks/useImageViewer";
 
+// Icons
+import TicketFileUploader from "./TicketFileUploader";
+
 // Services
 import ticketService from "@/api/services/ticketService";
-
-// Icons
-import filePlusIcon from "../assets/icons/outline/file-plus.svg";
 
 const TicketPageBody = () => {
   const { ticketId } = useParams();
@@ -66,24 +65,9 @@ const TicketPageBody = () => {
       <div className="grid grid-cols-3 gap-5">
         {/* File */}
         <div className="w-full bg-white p-2.5 rounded-20 border">
-          <label className="flex items-center justify-center w-full h-96 bg-blue-500 rounded-xl transition-colors duration-200 hover:bg-blue-600">
-            <div className="flex flex-col items-center">
-              <Icon
-                size={80}
-                src={filePlusIcon}
-                alt="Fayl qo'shish"
-                className="size-20"
-              />
-
-              <span className="text-white text-lg font-medium mt-2">
-                {file ? "Fayl yuklangan" : "Fayl yuklash"}
-              </span>
-            </div>
-
-            <input type="file" accept=".pdf" className="hidden" />
-          </label>
+          <TicketFileUploader file={file} />
         </div>
-
+        
         {/* Passport */}
         <div className="w-full bg-white p-2.5 rounded-20 border">
           {/* Wrapper */}
