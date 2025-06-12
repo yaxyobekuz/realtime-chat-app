@@ -23,6 +23,7 @@ import NotFound from "./pages/NotFound";
 import Payments from "./pages/Payments";
 import Passports from "./pages/Passports";
 import UserTickets from "./pages/UserTickets";
+import Ticket from "./pages/Ticket";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -47,6 +48,7 @@ const App = () => {
 
         {/* Tickets */}
         <Route path="tickets" element={<Tickets />} />
+        <Route path="tickets/ticket/:ticketId" element={<Ticket />} />
         <Route path="tickets/user/:userId" element={<UserTickets />} />
       </Route>
     ),
