@@ -1,10 +1,4 @@
 const endpoints = {
-  // Tickets
-  getTickets: "/api/tickets",
-  createTicket: "/api/tickets/new",
-  getTicket: (id) => `/api/tickets/ticket/${id}`,
-  getUserTickets: (userId) => `/api/tickets/user/${userId}`,
-
   // Payments
   getPayments: "/api/payments",
   createPayment: "/api/payments/new",
@@ -15,6 +9,14 @@ const endpoints = {
   getPassports: "/api/passports",
   createPassport: "/api/passports/new",
   getUserPassports: (userId) => `/api/passports/user/${userId}`,
+
+  // Tickets
+  getTickets: "/api/tickets",
+  createTicket: "/api/tickets/new",
+  getTicket: (id) => `/api/tickets/ticket/${id}`,
+  deleteTicketFile: (fileId) => `/tickets/file/${fileId}`,
+  getUserTickets: (userId) => `/api/tickets/user/${userId}`,
+  uploadTicketFile: (ticketId) => `/api/tickets/upload/${ticketId}`,
 
   // Chats
   getChats: "/api/chats",

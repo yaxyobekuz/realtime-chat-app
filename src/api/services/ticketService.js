@@ -29,6 +29,28 @@ const ticketService = {
   createTicket: async (data) => {
     return await api.post(endpoints.createTicket, data);
   },
+
+  uploadTicketFile: async (ticketId, formData) => {
+    try {
+      const res = await api.post(endpoints.uploadTicketFile(ticketId), formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return res;
+    } catch (error) {
+      return formatErrorMessage(error);
+    }
+  },
+
+  deleteTicketFile: async (fileId) => {
+    try {
+      const res = await api.delete(endpoints.deleteTicketFile(fileId));
+      return res;
+    } catch (error) {
+      return formatErrorMessage(error);
+    }
+  },
 };
 
 export default ticketService;
