@@ -48,7 +48,7 @@ const TicketPageBody = () => {
   // Error
   if (!ticket) return "Xatolik";
 
-  const { file, passport, payment, user } = ticket;
+  const { file, passport, payment, user, _id: id } = ticket;
 
   const handleViewImage = (type) => {
     if (type === "passport") {
@@ -65,15 +65,21 @@ const TicketPageBody = () => {
       <div className="grid grid-cols-3 gap-5">
         {/* File */}
         <div className="w-full bg-white p-2.5 rounded-20 border">
-          <TicketFileUploader file={file} />
+          <TicketFileUploader
+            file={file}
+            ticketId={id}
+            onFileUploaded={(fileData) => {
+              setTicket((prev) => ({ ...prev, file: fileData }));
+            }}
+          />
         </div>
-        
+
         {/* Passport */}
         <div className="w-full bg-white p-2.5 rounded-20 border">
           {/* Wrapper */}
-          <div className="relative w-full mb-3.5">
+          <div className="relative w-full mb-3">
             {/* Date */}
-            <div className="absolute top-5 right-5 bg-black/70 px-2.5 py-1 rounded-full text-white text-sm">
+            <div className="absolute left-5 bottom-5 bg-black/70 px-2.5 py-1 rounded-full text-white text-sm">
               {formatDate(passport.createdAt)}
             </div>
 
@@ -86,12 +92,9 @@ const TicketPageBody = () => {
               onClick={() => handleViewImage("passport")}
               className="w-full h-96 aspect-square object-cover bg-neutral-50 rounded-xl"
             />
-
-            {/* Overlay */}
-            <div className="flex items-end justify-between absolute inset-x-0 bottom-0 w-full bg-gradient-to-b from-transparent to-black/90 p-5 rounded-b-xl">
-              <h3 className="text-xl font-medium text-white">Passport</h3>
-            </div>
           </div>
+
+          <h3 className="mb-1.5 text-lg font-medium">Passport</h3>
 
           {/* Description */}
           <p>{passport.description || "Izoh bildirilmagan"}</p>
@@ -100,9 +103,9 @@ const TicketPageBody = () => {
         {/* Payment */}
         <div className="w-full bg-white p-2.5 rounded-20 border">
           {/* Wrapper */}
-          <div className="relative w-full mb-3.5">
+          <div className="relative w-full mb-3">
             {/* Date */}
-            <div className="absolute top-5 right-5 bg-black/70 px-2.5 py-1 rounded-full text-white text-sm">
+            <div className="absolute left-5 bottom-5 bg-black/70 px-2.5 py-1 rounded-full text-white text-sm">
               {formatDate(payment.createdAt)}
             </div>
 
@@ -115,14 +118,13 @@ const TicketPageBody = () => {
               onClick={handleViewImage}
               className="w-full h-96 aspect-square object-cover bg-neutral-50 rounded-xl"
             />
+          </div>
 
-            {/* Overlay */}
-            <div className="flex items-end justify-between absolute inset-x-0 bottom-0 w-full bg-gradient-to-b from-transparent to-black/90 p-5 rounded-b-xl">
-              <h3 className="text-xl font-medium text-white">To'lov cheki</h3>
-              <span className="text-2xl font-semibold text-white">
-                {payment.amount?.toLocaleString()}$
-              </span>
-            </div>
+          <div className="flex items-end justify-between mb-1.5">
+            <h3 className="text-lg font-medium">To'lov cheki</h3>
+            <span className="text-lg font-semibold text-blue-500">
+              {payment.amount?.toLocaleString()}$
+            </span>
           </div>
 
           {/* Description */}
