@@ -1,10 +1,10 @@
 import UserTicketsList from "@/components/UserTicketsList";
-import TicketsPageHeader from "@/components/TicketsPageHeader";
+import UserTicketPageHeader from "@/components/UserTicketPageHeader";
 
 const UserTickets = () => {
   return (
     <div className="size-full border-l">
-      <TicketsPageHeader />
+      <UserTicketPageHeader />
       <UserTicketsList />
     </div>
   );
