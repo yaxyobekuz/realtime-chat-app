@@ -71,4 +71,14 @@ const formatErrorMessage = (error) => {
   return formattedError;
 };
 
-export { getBubbleBorderRadius, formatTime, formatDate, formatErrorMessage };
+const extractNumbers = (text = "") => {
+  return text?.replace(/\D/g, "");
+};
+
+export {
+  formatTime,
+  formatDate,
+  extractNumbers,
+  formatErrorMessage,
+  getBubbleBorderRadius,
+};
