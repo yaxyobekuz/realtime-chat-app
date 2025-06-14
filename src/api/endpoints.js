@@ -14,8 +14,8 @@ const endpoints = {
   getTickets: "/api/tickets",
   createTicket: "/api/tickets/new",
   getTicket: (id) => `/api/tickets/ticket/${id}`,
-  deleteTicketFile: (fileId) => `/tickets/file/${fileId}`,
   getUserTickets: (userId) => `/api/tickets/user/${userId}`,
+  deleteTicketFile: (fileId) => `/api/tickets/file/${fileId}`,
   uploadTicketFile: (ticketId) => `/api/tickets/upload/${ticketId}`,
 
   // Chats

@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 // Components
 import Icon from "./Icon";
 
+// Toast (Notification)
+import toast from "react-hot-toast";
+
 // Services
 import ticketService from "../api/services/ticketService";
 
@@ -11,10 +14,11 @@ import plusIcon from "../assets/icons/outline/plus.svg";
 import trashIcon from "../assets/icons/outline/trash.svg";
 import filePlusIcon from "../assets/icons/outline/file-plus.svg";
 
-const TicketFileUploader = ({ ticketId, onFileUploaded, onError, file }) => {
+const TicketFileUploader = ({ ticketId, onFileUploaded, file }) => {
+  const [isDeleting, setIsDeleting] = useState(false);
   const [filePreview, setFilePreview] = useState(null);
-  const [uploadedFile, setUploadedFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [uploadedFile, setUploadedFile] = useState(null);
 
   const handleUploadFile = (e) => {
     const selectedFile = e.target.files[0];
@@ -30,35 +34,43 @@ const TicketFileUploader = ({ ticketId, onFileUploaded, onError, file }) => {
   };
 
   const uploadFileToServer = async () => {
-    if (!uploadedFile || !ticketId || isUploading) return;
+    if (!uploadedFile || !ticketId || isUploading || isDeleting) return;
 
     setIsUploading(true);
 
-    try {
-      const formData = new FormData();
-      formData.append("file", uploadedFile);
+    const formData = new FormData();
+    formData.append("file", uploadedFile);
 
-      const response = await ticketService.uploadTicketFile(ticketId, formData);
-
-      if (response.ok) {
-        // Clear current file after successful upload
+    ticketService
+      .uploadTicketFile(ticketId, formData)
+      .then((res) => {
+        if (!res.ok) throw new Error();
+        if (onFileUploaded) onFileUploaded(res.data);
+        toast.success("Fayl muvaffaqiyatli yuklandi");
         removeFile();
+      })
+      .catch((err) => {
+        toast.error(err.message || "Fayl yuklashda xatolik yuz berdi");
+      })
+      .finally(() => setIsUploading(false));
+  };
 
-        // Call success callback
-        if (onFileUploaded) onFileUploaded(response.data);
-      } else {
-        throw new Error(response.message || "Fayl yuklashda xatolik");
-      }
-    } catch (error) {
-      console.error("Fayl yuklash xatolik:", error);
+  const deleteFileFromServer = async () => {
+    if (!file || isDeleting) return;
 
-      // Call error callback
-      if (onError) {
-        onError(error.message || "Fayl yuklashda xatolik yuz berdi");
-      }
-    } finally {
-      setIsUploading(false);
-    }
+    setIsDeleting(true);
+
+    ticketService
+      .deleteTicketFile(file._id)
+      .then((res) => {
+        if (!res.ok) throw new Error();
+        if (onFileUploaded) onFileUploaded(null);
+        toast.success("Fayl muvaffaqiyatli o'chirildi");
+      })
+      .catch((err) => {
+        toast.error(err.message || "Faylni o'chirishda xatolik yuz berdi");
+      })
+      .finally(() => setIsDeleting(false));
   };
 
   const removeFile = () => {
@@ -80,8 +92,8 @@ const TicketFileUploader = ({ ticketId, onFileUploaded, onError, file }) => {
       type="file"
       accept=".pdf"
       className="hidden"
-      disabled={isUploading}
       onChange={handleUploadFile}
+      disabled={isUploading || isDeleting}
     />
   );
 
@@ -107,12 +119,17 @@ const TicketFileUploader = ({ ticketId, onFileUploaded, onError, file }) => {
 
         <div className="flex items-cente justify-between">
           <h3 className="font-medium text-lg">Chipta</h3>
+
           {/* Action buttons */}
           <div className="flex items-center gap-3.5">
             {/* Add another file */}
             <label
               title="Boshqa fayl yuklash"
-              className="flex items-center justify-center size-12 bg-neutral-50 rounded-full transition-colors duration-200 cursor-pointer hover:bg-neutral-100"
+              className={`${
+                isDeleting
+                  ? "cursor-not-allowed"
+                  : "cursor-pointer hover:bg-neutral-100"
+              } flex items-center justify-center size-12 bg-neutral-50 rounded-full transition-colors duration-200`}
             >
               <Icon src={plusIcon} alt="Fayl qo'shish" />
               {fileInput}
@@ -120,9 +137,10 @@ const TicketFileUploader = ({ ticketId, onFileUploaded, onError, file }) => {
 
             {/* Remove file */}
             <button
-              disabled={true}
+              disabled={isDeleting}
               title="Faylni o'chirish"
-              className="flex items-center justify-center size-12 bg-red-50 rounded-full transition-colors duration-200 hover:bg-red-100 disabled:opacity-50"
+              onClick={deleteFileFromServer}
+              className="flex items-center justify-center size-12 bg-red-50 rounded-full transition-colors duration-200 hover:bg-red-100 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-red-50"
             >
               <Icon src={trashIcon} alt="Chiqitdon" />
             </button>
@@ -180,7 +198,7 @@ const TicketFileUploader = ({ ticketId, onFileUploaded, onError, file }) => {
           <button
             onClick={uploadFileToServer}
             disabled={isUploading || !ticketId}
-            className="flex items-center justify-center h-12 px-5 bg-green-50 rounded-full text-green-600 transition-colors duration-200 hover:bg-green-100 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex items-center justify-center h-12 px-5 bg-green-50 rounded-full text-green-600 transition-colors duration-200 hover:bg-green-100 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-green-50"
           >
             {isUploading ? "Yuklanmoqda..." : "Faylni biriktirish"}
           </button>
@@ -188,7 +206,11 @@ const TicketFileUploader = ({ ticketId, onFileUploaded, onError, file }) => {
           {/* Add another file */}
           <label
             title="Boshqa fayl yuklash"
-            className="flex items-center justify-center size-12 bg-neutral-50 rounded-full transition-colors duration-200 cursor-pointer hover:bg-neutral-100"
+            className={`${
+              isDeleting || isUploading
+                ? "opacity-50 cursor-not-allowed"
+                : "cursor-pointer hover:bg-neutral-100"
+            } flex items-center justify-center size-12 bg-neutral-50 rounded-full transition-colors duration-200`}
           >
             <Icon src={plusIcon} alt="Fayl qo'shish" />
             {fileInput}
@@ -197,9 +219,9 @@ const TicketFileUploader = ({ ticketId, onFileUploaded, onError, file }) => {
           {/* Remove file */}
           <button
             onClick={removeFile}
-            disabled={isUploading}
+            disabled={isUploading || isDeleting}
             title="Faylni o'chirish"
-            className="flex items-center justify-center size-12 bg-red-50 rounded-full transition-colors duration-200 hover:bg-red-100 disabled:opacity-50"
+            className="flex items-center justify-center size-12 bg-red-50 rounded-full transition-colors duration-200 hover:bg-red-100 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-red-50"
           >
             <Icon src={trashIcon} alt="Chiqitdon" />
           </button>
