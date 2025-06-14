@@ -33,9 +33,7 @@ const UserTicketsList = () => {
       .finally(() => setIsLoading(false));
   };
 
-  useEffect(() => {
-    loadTickets();
-  }, []);
+  useEffect(loadTickets, []);
 
   // Skeleton loader
   if (isLoading) return <TableSkeleton />;
@@ -48,87 +46,97 @@ const List = ({ tickets }) => {
   return (
     <div className="max-h-[calc(100%-64px)] overflow-y-auto p-5">
       <div className="rounded-20 overflow-hidden border">
-        <table className="table w-full">
-          {/* Thead */}
-          <thead>
-            <tr className="h-14 bg-white border-b">
-              {/* Status */}
-              <th>Holat</th>
+        {/* No tickets */}
+        {!tickets?.length || tickets?.length === 0 ? (
+          <div className="flex items-center justify-center h-64 bg-white">
+            <p className="text-neutral-500">Chiptalar mavjud emas</p>
+          </div>
+        ) : null}
 
-              {/* Ticket price */}
-              <th>Chipta narxi</th>
+        {/* Table */}
+        {tickets?.length > 0 ? (
+          <table className="table w-full">
+            {/* Thead */}
+            <thead>
+              <tr className="h-14 bg-white border-b">
+                {/* Status */}
+                <th>Holat</th>
 
-              {/* Client name */}
-              <th>Chipta egasi</th>
+                {/* Ticket price */}
+                <th>Chipta narxi</th>
 
-              {/* Account owner name */}
-              <th>Hisob egasi</th>
+                {/* Client name */}
+                <th>Chipta egasi</th>
 
-              {/* Description */}
-              <th>Izoh</th>
+                {/* Account owner name */}
+                <th>Hisob egasi</th>
 
-              {/* Date */}
-              <th>Sana</th>
+                {/* Description */}
+                <th>Izoh</th>
 
-              {/* Actions */}
-              <th className="w-40">Harakatlar</th>
-            </tr>
-          </thead>
+                {/* Date */}
+                <th>Sana</th>
 
-          {/* Tbody */}
-          <tbody>
-            {tickets.map(
-              ({
-                user,
-                name,
-                chatId,
-                payment,
-                _id: id,
-                createdAt,
-                description,
-              }) => (
-                <tr key={id} className="h-12 odd:bg-white/50">
-                  {/* Client name */}
-                  <td className="text-green-500 border-r">Aktiv</td>
+                {/* Actions */}
+                <th className="w-40">Harakatlar</th>
+              </tr>
+            </thead>
 
-                  {/* Ticket price */}
-                  <td className="text-blue-500 border-x">
-                    {payment.amount?.toLocaleString()}$
-                  </td>
+            {/* Tbody */}
+            <tbody>
+              {tickets.map(
+                ({
+                  user,
+                  name,
+                  chatId,
+                  payment,
+                  _id: id,
+                  createdAt,
+                  description,
+                }) => (
+                  <tr key={id} className="h-12 odd:bg-white/50">
+                    {/* Client name */}
+                    <td className="text-green-500 border-r">Aktiv</td>
 
-                  {/* Client name */}
-                  <td className="border-x">{name}</td>
+                    {/* Ticket price */}
+                    <td className="text-blue-500 border-x">
+                      {payment.amount?.toLocaleString()}$
+                    </td>
 
-                  {/* Account owner name */}
-                  <td className="border-x">
-                    <Link
-                      to={`/chats/chat/${chatId}`}
-                      className="transition-colors duration-200 hover:text-blue-500"
-                    >
-                      {user.firstName}
-                    </Link>
-                  </td>
+                    {/* Client name */}
+                    <td className="border-x">{name}</td>
 
-                  {/* Description */}
-                  <td className="border-x">{description}</td>
+                    {/* Account owner name */}
+                    <td className="border-x">
+                      <Link
+                        to={`/chats/chat/${chatId}`}
+                        className="transition-colors duration-200 hover:text-blue-500"
+                      >
+                        {user.firstName}
+                      </Link>
+                    </td>
 
-                  {/* Date */}
-                  <td className="border-x">{formatDate(createdAt)}</td>
+                    {/* Description */}
+                    <td className="border-x">{description}</td>
 
-                  {/* Link */}
-                  <td className="border-l">
-                    <Link
-                      to={`/tickets/ticket/${id}`}
-                      className="text-blue-500 hover:underline"
-                    >
-                      Ba'tafsil
-                    </Link>
-                  </td>
-                </tr>
-              )
-            )}
-          </tbody>
-        </table>
+                    {/* Date */}
+                    <td className="border-x">{formatDate(createdAt)}</td>
+
+                    {/* Link */}
+                    <td className="border-l">
+                      <Link
+                        to={`/tickets/ticket/${id}`}
+                        className="text-blue-500 hover:underline"
+                      >
+                        Ba'tafsil
+                      </Link>
+                    </td>
+                  </tr>
+                )
+              )}
+            </tbody>
+          </table>
+        ) : null}
       </div>
     </div>
   );

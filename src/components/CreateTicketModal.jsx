@@ -316,17 +316,16 @@ const Payments = ({ userId, onChange }) => {
   return (
     <div className="max-w-full w-full overflow-x-auto hidden-scroll">
       <div className="flex gap-3.5 min-w-max">
-        {payments.map(({ photo, _id: id, ticket }, index) => {
+        {payments.map(({ photo, _id: id }, index) => {
           const handleViewImage = () => {
             viewImage({ url: photo.url, alt: "To'lov rasmi" });
           };
           return (
-            <label key={index} className={ticket ? "opacity-50" : null}>
+            <label key={index}>
               <input
                 value={id}
                 type="radio"
                 name="payment"
-                disabled={ticket}
                 className="peer hidden"
                 onChange={(e) => onChange(e.target.value)}
               />
