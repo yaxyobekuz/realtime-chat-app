@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 
 // Components
 import Icon from "./Icon";
+import UserPhoto from "./UserPhoto";
 import StatusDrawer from "./StatusDrawer";
 
 // Hooks
@@ -104,24 +105,7 @@ const ChatDetails = () => {
 
       {/* User Info */}
       <div className="flex items-center gap-4 px-4 py-4">
-        {photo ? (
-          <img
-            width={80}
-            height={80}
-            src={photo.url}
-            alt={`${firstName} profil rasmi`}
-            className="shrink-0 size-20 bg-neutral-50 rounded-full object-cover"
-            onClick={() =>
-              viewImage({ url: photo.url, alt: `${firstName} profil rasmi` })
-            }
-          />
-        ) : (
-          <div className="flex items-center justify-center shrink-0 size-20 bg-gradient-to-tr from-green-300 to-green-300 rounded-full">
-            <span className="text-2xl text-white">
-              {firstName?.[0] || "🗿"}
-            </span>
-          </div>
-        )}
+        <UserPhoto url={photo?.url} user={user} />
 
         <div className="w-full space-y-1.5">
           <h3 className="text-xl font-medium">{firstName || "Chat"}</h3>

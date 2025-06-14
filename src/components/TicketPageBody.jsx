@@ -18,6 +18,7 @@ import TicketFileUploader from "./TicketFileUploader";
 
 // Services
 import ticketService from "@/api/services/ticketService";
+import UserPhoto from "./UserPhoto";
 
 const TicketPageBody = () => {
   const { ticketId } = useParams();
@@ -134,12 +135,21 @@ const TicketPageBody = () => {
 
       {/* Mid */}
       <div className="grid grid-cols-2 gap-5">
-        {/* User info */}
-        <div className="w-full bg-white p-5 rounded-20 border">
-          <h3 className="text-lg font-medium mb-3">Foydalanuvchi</h3>
-          <p className="text-neutral-500">
-            {user.firstName || "Foydalanuvchi ismi mavjud emas"}
-          </p>
+        <div className="flex items-center gap-3.5 w-full bg-white p-5 rounded-20 border">
+          {/* User photo */}
+          <UserPhoto
+            user={user}
+            url={user?.photo?.url}
+            className="size-[68px] text-2xl"
+          />
+
+          {/* User info */}
+          <div className="">
+            <h3 className="text-lg font-medium mb-3">Foydalanuvchi</h3>
+            <p className="text-neutral-500">
+              {user.firstName || "Foydalanuvchi ismi mavjud emas"}
+            </p>
+          </div>
         </div>
 
         {/* Ticket description */}

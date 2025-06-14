@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
+// Components
+import UserPhoto from "./UserPhoto";
+
 // Socket
 import { io } from "socket.io-client";
 
@@ -95,7 +98,7 @@ const ChatsList = ({ chatStatus }) => {
   }
 
   // Error
-  if (chats.hasError) return <div>Chatlar yuklanmadi!</div>;
+  if (chats.hasError) return <div className="p-4">Chatlar yuklanmadi!</div>;
 
   // Filter chats by status
   const filteredChats = (() => {
@@ -107,10 +110,10 @@ const ChatsList = ({ chatStatus }) => {
   return filteredChats.map((chat) => {
     const {
       id,
+      user,
       createdAt,
       status = "Yangi",
       unansweredMessagesCount,
-      user: { firstName, photo },
     } = chat;
 
     const formattedStatus = statuses.find(({ value }) => value === status);
@@ -121,25 +124,15 @@ const ChatsList = ({ chatStatus }) => {
           to={`/chats/chat/${id}`}
           className="flex items-center gap-3 py-2.5 px-5 transition-colors duration-300 hover:bg-neutral-50"
         >
-          {photo ? (
-            <img
-              width={48}
-              height={48}
-              alt="User avatar"
-              src={photo.url}
-              className="bg-neutral-50 size-12 rounded-full object-cover"
-            />
-          ) : (
-            <div className="flex items-center justify-center shrink-0 size-12 bg-gradient-to-tr from-green-300 to-green-300 rounded-full">
-              <span className="text-xl text-white">
-                {firstName?.[0] || "🗿"}
-              </span>
-            </div>
-          )}
+          <UserPhoto
+            user={user}
+            url={user.photo?.url}
+            className="size-12 text-xl"
+          />
 
           <div className="grow space-y-0.5">
             <h3 className="text-[17px] leading-6 font-medium line-clamp-1">
-              {firstName}
+              {user.firstName}
             </h3>
             <div className="flex items-center justify-between w-full">
               <p className="text-neutral-400">
