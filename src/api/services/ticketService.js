@@ -32,7 +32,7 @@ const ticketService = {
 
   uploadTicketFile: async (ticketId, formData) => {
     try {
-      const res = await api.post(endpoints.uploadTicketFile(ticketId), formData, {
+      const res = await api.put(endpoints.uploadTicketFile(ticketId), formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

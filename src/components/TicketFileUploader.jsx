@@ -19,6 +19,7 @@ const TicketFileUploader = ({ ticketId, onFileUploaded, file }) => {
   const [filePreview, setFilePreview] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadedFile, setUploadedFile] = useState(null);
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   const handleUploadFile = (e) => {
     const selectedFile = e.target.files[0];
@@ -37,22 +38,48 @@ const TicketFileUploader = ({ ticketId, onFileUploaded, file }) => {
     if (!uploadedFile || !ticketId || isUploading || isDeleting) return;
 
     setIsUploading(true);
+    setUploadProgress(0);
 
     const formData = new FormData();
     formData.append("file", uploadedFile);
+
+    // Simulate upload progress animation
+    const progressInterval = setInterval(() => {
+      setUploadProgress((prev) => {
+        if (prev >= 95) {
+          clearInterval(progressInterval);
+          return 95;
+        }
+        return prev + Math.random() * 10;
+      });
+    }, 150);
 
     ticketService
       .uploadTicketFile(ticketId, formData)
       .then((res) => {
         if (!res.ok) throw new Error();
-        if (onFileUploaded) onFileUploaded(res.data);
-        toast.success("Fayl muvaffaqiyatli yuklandi");
-        removeFile();
+
+        // Complete progress animation
+        clearInterval(progressInterval);
+        setUploadProgress(100);
+
+        setTimeout(() => {
+          if (onFileUploaded) onFileUploaded(res.data);
+          toast.success("Fayl muvaffaqiyatli yuklandi");
+          removeFile();
+        }, 500);
       })
       .catch((err) => {
+        clearInterval(progressInterval);
+        setUploadProgress(0);
         toast.error(err.message || "Fayl yuklashda xatolik yuz berdi");
       })
-      .finally(() => setIsUploading(false));
+      .finally(() => {
+        setTimeout(() => {
+          setIsUploading(false);
+          setUploadProgress(0);
+        }, 500);
+      });
   };
 
   const deleteFileFromServer = async () => {
@@ -76,6 +103,7 @@ const TicketFileUploader = ({ ticketId, onFileUploaded, file }) => {
   const removeFile = () => {
     setFilePreview(null);
     setUploadedFile(null);
+    setUploadProgress(0);
     if (filePreview) URL.revokeObjectURL(filePreview);
   };
 
@@ -118,7 +146,7 @@ const TicketFileUploader = ({ ticketId, onFileUploaded, file }) => {
         </div>
 
         <div className="flex items-cente justify-between">
-          <h3 className="font-medium text-lg">Chipta</h3>
+          <h3 className="font-medium text-lg">Fayl</h3>
 
           {/* Action buttons */}
           <div className="flex items-center gap-3.5">
@@ -190,6 +218,46 @@ const TicketFileUploader = ({ ticketId, onFileUploaded, file }) => {
           <div className="absolute bottom-5 left-5 bg-black/70 px-2.5 py-1 rounded-full text-white text-sm">
             {uploadedFile?.name}
           </div>
+
+          {/* Upload progress overlay */}
+          {isUploading && (
+            <div className="absolute inset-0 bg-black/50 rounded-xl flex items-center justify-center">
+              <div className="bg-white rounded-lg p-6 w-64">
+                <div className="text-center mb-4">
+                  <div className="text-lg font-medium mb-2">
+                    Fayl yuklanmoqda...
+                  </div>
+                  <div className="text-sm text-gray-600">
+                    {Math.round(uploadProgress)}%
+                  </div>
+                </div>
+
+                {/* Progress bar */}
+                <div className="w-full bg-gray-200 rounded-full h-2 mb-4">
+                  <div
+                    style={{ width: `${uploadProgress}%` }}
+                    className="bg-blue-500 h-2 rounded-full transition-all duration-300 ease-out"
+                  />
+                </div>
+
+                {/* Animated dots */}
+                <div className="flex justify-center space-x-1">
+                  <div
+                    className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
+                    style={{ animationDelay: "0ms" }}
+                  />
+                  <div
+                    className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
+                    style={{ animationDelay: "150ms" }}
+                  />
+                  <div
+                    className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
+                    style={{ animationDelay: "300ms" }}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Action buttons */}
@@ -200,7 +268,7 @@ const TicketFileUploader = ({ ticketId, onFileUploaded, file }) => {
             disabled={isUploading || !ticketId}
             className="flex items-center justify-center h-12 px-5 bg-green-50 rounded-full text-green-600 transition-colors duration-200 hover:bg-green-100 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-green-50"
           >
-            {isUploading ? "Yuklanmoqda..." : "Faylni biriktirish"}
+            Faylni biriktirish
           </button>
 
           {/* Add another file */}
