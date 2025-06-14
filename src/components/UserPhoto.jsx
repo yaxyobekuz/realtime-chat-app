@@ -14,15 +14,15 @@ const UserPhoto = ({ url, user, className = "size-20 text-3xl" }) => {
   const [hasError, setHasError] = useState(false);
 
   // Memoized values - avoid recalculation on every render
-  const { imageName, colorCode, fallbackChar } = useMemo(
-    () => ({
+  const { imageName, colorCode, fallbackChar } = useMemo(() => {
+    const nums = extractNumbers(user?._id) || "0";
+    return {
+      colorCode: nums[nums.length - 1],
       imageName: `${user?.firstName} profil rasmi`,
-      colorCode: extractNumbers(user?._id)?.[0] || "0",
       firstName: user?.firstName || user?.username || "Foydalanuvchi",
       fallbackChar: (user?.firstName || user?.username)?.[0] || "🗿",
-    }),
-    [user]
-  );
+    };
+  }, [user]);
 
   // Memoized callback to prevent unnecessary re-renders
   const handleImageError = useCallback(() => setHasError(true), []);

@@ -72,6 +72,7 @@ const formatErrorMessage = (error) => {
 };
 
 const extractNumbers = (text = "") => {
+  if (typeof text !== "string") return;
   return text?.replace(/\D/g, "");
 };
 
