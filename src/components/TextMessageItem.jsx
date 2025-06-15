@@ -26,7 +26,12 @@ const TextMessageItem = ({
             : "bg-white mr-auto"
         } ${bubbleBorderRadius} inline-block max-w-[calc(100%-64px)] border px-3 py-2.5 leading-5 shadow shadow-neutral-200/70`}
       >
-        <span className="break-words">{text}</span>
+        <span
+          className="message-item"
+          dangerouslySetInnerHTML={{
+            __html: text?.replaceAll("\n", "<br>"),
+          }}
+        />
       </div>
 
       {/* Timestamp */}
