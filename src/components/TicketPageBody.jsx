@@ -11,6 +11,7 @@ import { toast } from "@/notification/toast";
 import ticketStatuses from "@/data/ticketStatuses";
 
 // Hooks
+import useModal from "@/hooks/useModal";
 import useImageViewer from "@/hooks/useImageViewer";
 
 // Components
@@ -26,6 +27,7 @@ const TicketPageBody = () => {
   const { viewImage } = useImageViewer();
   const [ticket, setTicket] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { open: openModal } = useModal("sendTicket");
 
   const loadTicket = () => {
     setIsLoading(true);
@@ -68,6 +70,11 @@ const TicketPageBody = () => {
       if (prev.status === "readyToSend" && !fileData) updatedStatus = "new";
       return { ...prev, status: updatedStatus, file: fileData };
     });
+  };
+
+  const sendTicketFileToUser = () => {
+    if (!file) return;
+    openModal({ ticketId: id });
   };
 
   // Ticket content
@@ -155,6 +162,7 @@ const TicketPageBody = () => {
 
           <button
             disabled={!file}
+            onClick={sendTicketFileToUser}
             className="flex items-center justify-center h-12 px-5 bg-green-50 rounded-full text-green-600 transition-colors duration-200 hover:bg-green-100 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-green-50"
           >
             Chiptani yuborish
