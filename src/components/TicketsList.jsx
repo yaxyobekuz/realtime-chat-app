@@ -107,7 +107,7 @@ const List = ({ tickets }) => {
 
                 return (
                   <tr key={id} className="h-12 odd:bg-white/50">
-                    {/* Client name */}
+                    {/* CStatus */}
                     <td className={`${formattedStatus?.color} border-r`}>
                       {formattedStatus?.label || "Holat mavjud emas"}
                     </td>

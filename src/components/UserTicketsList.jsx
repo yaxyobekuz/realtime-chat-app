@@ -10,6 +10,9 @@ import { formatDate } from "@/utils/helpers";
 // Components
 import TableSkeleton from "./skeleton/Table";
 
+// Ticket statuses
+import ticketStatuses from "@/data/ticketStatuses";
+
 // Services
 import ticketService from "@/api/services/ticketService";
 
@@ -89,50 +92,59 @@ const List = ({ tickets }) => {
                   user,
                   name,
                   chatId,
+                  status,
                   payment,
                   _id: id,
                   createdAt,
                   description,
-                }) => (
-                  <tr key={id} className="h-12 odd:bg-white/50">
-                    {/* Client name */}
-                    <td className="text-green-500 border-r">Aktiv</td>
+                }) => {
+                  const formattedStatus = ticketStatuses.find(
+                    (s) => s.value === status
+                  );
 
-                    {/* Ticket price */}
-                    <td className="text-blue-500 border-x">
-                      {payment.amount?.toLocaleString()}$
-                    </td>
+                  return (
+                    <tr key={id} className="h-12 odd:bg-white/50">
+                      {/* CStatus */}
+                      <td className={`${formattedStatus?.color} border-r`}>
+                        {formattedStatus?.label || "Holat mavjud emas"}
+                      </td>
 
-                    {/* Client name */}
-                    <td className="border-x">{name}</td>
+                      {/* Ticket price */}
+                      <td className="text-blue-500 border-x">
+                        {payment.amount?.toLocaleString()}$
+                      </td>
 
-                    {/* Account owner name */}
-                    <td className="border-x">
-                      <Link
-                        to={`/chats/chat/${chatId}`}
-                        className="transition-colors duration-200 hover:text-blue-500"
-                      >
-                        {user.firstName}
-                      </Link>
-                    </td>
+                      {/* Client name */}
+                      <td className="border-x">{name}</td>
 
-                    {/* Description */}
-                    <td className="border-x">{description}</td>
+                      {/* Account owner name */}
+                      <td className="border-x">
+                        <Link
+                          to={`/chats/chat/${chatId}`}
+                          className="transition-colors duration-200 hover:text-blue-500"
+                        >
+                          {user.firstName}
+                        </Link>
+                      </td>
 
-                    {/* Date */}
-                    <td className="border-x">{formatDate(createdAt)}</td>
+                      {/* Description */}
+                      <td className="border-x">{description}</td>
 
-                    {/* Link */}
-                    <td className="border-l">
-                      <Link
-                        to={`/tickets/ticket/${id}`}
-                        className="text-blue-500 hover:underline"
-                      >
-                        Ba'tafsil
-                      </Link>
-                    </td>
-                  </tr>
-                )
+                      {/* Date */}
+                      <td className="border-x">{formatDate(createdAt)}</td>
+
+                      {/* Link */}
+                      <td className="border-l">
+                        <Link
+                          to={`/tickets/ticket/${id}`}
+                          className="text-blue-500 hover:underline"
+                        >
+                          Ba'tafsil
+                        </Link>
+                      </td>
+                    </tr>
+                  );
+                }
               )}
             </tbody>
           </table>
