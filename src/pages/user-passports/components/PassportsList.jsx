@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 // Toast (Notification)
 import { toast } from "@/notification/toast";
@@ -16,6 +17,7 @@ import passportService from "@/api/services/passportService";
 import PaymentsSkeleton from "../../../components/skeleton/Payments";
 
 const PassportsList = () => {
+  const { userId } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [passports, setPassports] = useState(null);
 
@@ -23,7 +25,7 @@ const PassportsList = () => {
     setIsLoading(true);
 
     passportService
-      .getPassports()
+      .getUserPassports(userId)
       .then((res) => {
         if (!res.ok) throw new Error();
         setPassports(res.data);
