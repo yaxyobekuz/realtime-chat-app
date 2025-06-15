@@ -16,8 +16,8 @@ import MainLayout from "./layouts/MainLayout";
 import ChatLayout from "./layouts/ChatLayout";
 
 // Pages
-import Chat from "./pages/Chat";
 import Home from "./pages/Home";
+import Chat from "./pages/chat/Chat";
 import NotFound from "./pages/NotFound";
 import Ticket from "./pages/ticket/Ticket";
 import Tickets from "./pages/tickets/Tickets";

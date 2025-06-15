@@ -1,18 +1,18 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 
-// Config
-import { apiBaseUrl } from "@/config";
-import quickReplies from "@/data/quickReplies";
-
-// Redux (Store)
-import { useDispatch } from "react-redux";
-
 // Socket
 import { io } from "socket.io-client";
 const socket = io(apiBaseUrl);
 
-const ChatFooter = ({ isLoading }) => {
+// Redux (Store)
+import { useDispatch } from "react-redux";
+
+// Config
+import { apiBaseUrl } from "@/config";
+import quickReplies from "@/data/quickReplies";
+
+const Footer = ({ isLoading }) => {
   const inputRef = useRef();
   const dispatch = useDispatch();
   const { chatId: currentChatId } = useParams();
@@ -179,4 +179,4 @@ const ChatFooter = ({ isLoading }) => {
   );
 };
 
-export default ChatFooter;
+export default Footer;

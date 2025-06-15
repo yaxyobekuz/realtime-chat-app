@@ -6,16 +6,10 @@ import { io } from "socket.io-client";
 const socket = io(apiBaseUrl);
 
 // Config
-import { apiBaseUrl } from "../config";
+import { apiBaseUrl } from "../../config";
 
 // Notification
 import { toast } from "@/notification/toast";
-
-// Components
-import ChatBody from "@/components/ChatBody";
-import ChatHeader from "@/components/ChatHeader";
-import ChatFooter from "@/components/ChatFooter";
-import ChatDetails from "@/components/ChatDetails";
 
 // Services
 import chatService from "@/api/services/chatService";
@@ -28,6 +22,12 @@ import {
   addNewChatMessagesToStore,
 } from "@/store/features/messagesSlice";
 import { useDispatch, useSelector } from "react-redux";
+
+// Components
+import Body from "@/pages/chat/components/Body";
+import Header from "@/pages/chat/components/Header";
+import Footer from "@/pages/chat/components/Footer";
+import RightSide from "@/pages/chat/components/RightSide";
 
 // Modals
 import CreateTicketModal from "@/components/CreateTicketModal";
@@ -76,13 +76,13 @@ const Chat = () => {
       <div className="flex size-full">
         {/* Chat Area */}
         <div className="max-w-[calc(100%-440px)] size-full">
-          <ChatHeader />
-          <ChatBody />
-          <ChatFooter isLoading={isLoading[chatId]} />
+          <Header />
+          <Body />
+          <Footer isLoading={isLoading[chatId]} />
         </div>
 
         {/* Chat Details */}
-        <ChatDetails />
+        <RightSide />
       </div>
 
       {/* Modals */}

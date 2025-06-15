@@ -5,13 +5,13 @@ import { useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 // Components
-import TextMessageItem from "./TextMessageItem";
-import FileMessageItem from "./FileMessageItem";
-import PhotoMessageItem from "./PhotoMessageItem";
+import TextMessageItem from "../../../components/TextMessageItem";
+import FileMessageItem from "../../../components/FileMessageItem";
+import PhotoMessageItem from "../../../components/PhotoMessageItem";
 
 const className = `max-h-[calc(100%-128px)] size-full overflow-y-auto hidden-scroll scroll-smooth scroll-pt-2 py-4`;
 
-const ChatBody = () => {
+const Body = () => {
   const { hash } = useLocation();
   const chatContainerRef = useRef(null);
   const { chatId: currentChatId } = useParams();
@@ -96,4 +96,4 @@ const ChatBody = () => {
   );
 };
 
-export default ChatBody;
+export default Body;

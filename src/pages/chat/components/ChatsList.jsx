@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
-// Components
-import UserPhoto from "./UserPhoto";
-
 // Socket
 import { io } from "socket.io-client";
 
-// Api base url
-import { apiBaseUrl } from "../config";
-
 // Data
 import statuses from "@/data/statuses";
+
+// Api base url
+import { apiBaseUrl } from "../../../config";
 
 // Notification
 import { toast } from "@/notification/toast";
 
 // Helpers
-import { formatTime } from "../utils/helpers";
+import { formatTime } from "../../../utils/helpers";
+
+// Components
+import UserPhoto from "../../../components/UserPhoto";
 
 // Services
 import chatService from "@/api/services/chatService";

@@ -4,7 +4,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-const ChatHeader = ({ placeholder = "" }) => {
+const Header = ({ placeholder = "" }) => {
   const { chatId: currentChatId } = useParams();
   const chatId = Number(currentChatId) || null;
   const chats = useSelector((state) => state.chats);
@@ -53,4 +53,4 @@ const ChatHeader = ({ placeholder = "" }) => {
   );
 };
 
-export default ChatHeader;
+export default Header;

@@ -1,17 +1,19 @@
 import { Link, useLocation, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 
-// Components
-import Icon from "./Icon";
-import UserPhoto from "./UserPhoto";
-import StatusDrawer from "./StatusDrawer";
+// Redux (Store)
+import { useSelector } from "react-redux";
 
 // Hooks
 import useModal from "@/hooks/useModal";
 import useImageViewer from "@/hooks/useImageViewer";
 
+// Components
+import Icon from "../../../components/Icon";
+import UserPhoto from "../../../components/UserPhoto";
+import StatusDrawer from "../../../components/StatusDrawer";
+
 // Helpers
-import { formatDate, formatTime } from "../utils/helpers";
+import { formatDate, formatTime } from "../../../utils/helpers";
 
 // Icons
 import filesIcon from "../assets/icons/outline/files.svg";
@@ -44,7 +46,7 @@ const SectionHeader = () => (
 // Main wrapper styling
 const drawerClasses = `shrink-0 w-[440px] max-h-full overflow-y-auto hidden-scroll border-l bg-white`;
 
-const ChatDetails = () => {
+const RightSide = () => {
   const { pathname } = useLocation();
   const { chatId: paramChatId } = useParams();
   const chatId = Number(paramChatId) || false;
@@ -245,4 +247,4 @@ const ActionButton = ({ icon, label, className = "", onClick }) => (
   </button>
 );
 
-export default ChatDetails;
+export default RightSide;

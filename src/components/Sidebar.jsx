@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // Components
-import ChatsList from "@/components/ChatsList";
+import ChatsList from "@/pages/chat/components/ChatsList";
 import SidebarTabs from "@/components/SidebarTabs";
 import SidebarHeader from "@/components/SidebarHeader";
 import SavedMessagesLink from "@/components/SavedMessagesLink";
