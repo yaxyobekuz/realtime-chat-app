@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 
 // Components
 import TextMessageItem from "./TextMessageItem";
+import FileMessageItem from "./FileMessageItem";
 import PhotoMessageItem from "./PhotoMessageItem";
 
 const className = `max-h-[calc(100%-128px)] size-full overflow-y-auto hidden-scroll scroll-smooth scroll-pt-2 py-4`;
@@ -82,6 +83,10 @@ const ChatBody = () => {
 
           if (msg?.type === "photo") {
             return <PhotoMessageItem key={i} {...sharedProps} />;
+          }
+
+          if (msg?.type === "file") {
+            return <FileMessageItem key={i} {...sharedProps} />;
           }
 
           return null;
