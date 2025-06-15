@@ -24,6 +24,7 @@ import Tickets from "./pages/tickets/Tickets";
 import Payments from "./pages/payments/Payments";
 import Passports from "./pages/passports/Passports";
 import UserTickets from "./pages/user-tickets/UserTickets";
+import UserPayments from "./pages/user-payments/UserPayments";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -35,9 +36,6 @@ const App = () => {
         {/* 404 */}
         <Route path="*" element={<NotFound />} />
 
-        {/* Payments */}
-        <Route path="payments" element={<Payments />} />
-
         {/* Chats */}
         <Route path="chats" element={<ChatLayout />}>
           <Route path="chat/:chatId" element={<Chat />} />
@@ -45,6 +43,10 @@ const App = () => {
 
         {/* Passports */}
         <Route path="passports" element={<Passports />} />
+
+        {/* Payments */}
+        <Route path="payments" element={<Payments />} />
+        <Route path="payments/user/:userId" element={<UserPayments />} />
 
         {/* Tickets */}
         <Route path="tickets" element={<Tickets />} />
