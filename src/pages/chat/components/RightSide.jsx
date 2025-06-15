@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 // Hooks
 import useModal from "@/hooks/useModal";
-import useImageViewer from "@/hooks/useImageViewer";
 
 // Components
 import Icon from "../../../components/Icon";
@@ -60,7 +59,6 @@ const RightSide = () => {
   const { photo, firstName, username, phone, _id: userId } = user;
 
   const { open: openModal } = useModal();
-  const { viewImage } = useImageViewer();
 
   // Display skeleton loader while chat data is loading
   if (isLoading[chatId]) {
@@ -128,17 +126,19 @@ const RightSide = () => {
       {/* User Documents and Contact */}
       <div className="py-2">
         <SidebarLink
+          isPage
+          isActive
           icon={filesIcon}
-          isActive={!!passportId}
           label="Pasport ma'lumotlari"
-          href={passportId && `${pathname}#${passportId}`}
+          href={`/passports/user/${userId}`}
         />
 
         <SidebarLink
+          isPage
+          isActive
           icon={paymentIcon}
-          isActive={!!paymentId}
           label="To'lov ma'lumotlari"
-          href={paymentId && `${pathname}#${paymentId}`}
+          href={`/payments/user/${userId}`}
         />
 
         <SidebarLink
