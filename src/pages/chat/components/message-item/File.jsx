@@ -9,7 +9,8 @@ import {
 } from "../../../../utils/helpers";
 
 // Icons
-import fileIcon from "../assets/icons/mini/file-text-white.svg";
+import fileIcon from "../../../../assets/icons/mini/file-text-white.svg";
+
 
 const File = ({
   file,

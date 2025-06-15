@@ -8,8 +8,8 @@ import useModal from "@/hooks/useModal";
 import useImageViewer from "@/hooks/useImageViewer";
 
 // Icons
-import filesIcon from "../assets/icons/mini/files.svg";
-import paymentIcon from "../assets/icons/mini/payment.svg";
+import filesIcon from "../../../../assets/icons/mini/files.svg";
+import paymentIcon from "../../../../assets/icons/mini/payment.svg";
 
 // Helpers
 import { formatTime, getBubbleBorderRadius } from "../../../../utils/helpers";
