@@ -4,66 +4,67 @@ import React, { useEffect } from "react";
 import { toast } from "@/notification/toast";
 
 // Components
-import PaymentsSkeleton from "./skeleton/Payments";
+import PaymentsSkeleton from "../../../components/skeleton/Payments";
 
 // Hooks
 import useImageViewer from "@/hooks/useImageViewer";
 
 // Redux (Store)
 import {
-  setPaymentsLoading,
-  updatePaymentsFromStore,
-} from "@/store/features/paymentsSlice";
+  setPassportsLoading,
+  updatePassportsFromStore,
+} from "@/store/features/passportsSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 // Helpers
 import { formatDate, formatTime } from "@/utils/helpers";
 
 // Services
-import paymentService from "@/api/services/paymentService";
+import passportService from "@/api/services/passportService";
 
-const PaymentsList = () => {
+const PassportsList = () => {
   const dispatch = useDispatch();
-  const { isLoading, data: payments } = useSelector((state) => state.payments);
+  const { isLoading, data: passports } = useSelector(
+    (state) => state.passports
+  );
 
-  const loadPayments = () => {
-    dispatch(setPaymentsLoading(true));
+  const loadPassports = () => {
+    dispatch(setPassportsLoading(true));
 
-    paymentService
-      .getPayments()
+    passportService
+      .getPassports()
       .then((res) => {
         if (!res.ok) throw new Error();
-        dispatch(updatePaymentsFromStore(res.data));
+        dispatch(updatePassportsFromStore(res.data));
       })
       .catch((err) => {
-        toast.error(err.message || "To'lovlarni yuklab bo'lmadi");
+        toast.error(err.message || "Pasportlarni yuklab bo'lmadi");
       })
-      .finally(() => dispatch(setPaymentsLoading(false)));
+      .finally(() => dispatch(setPassportsLoading(false)));
   };
 
   useEffect(() => {
-    if (payments.length === 0) {
-      loadPayments();
+    if (passports.length === 0) {
+      loadPassports();
     } else {
-      dispatch(setPaymentsLoading(false));
+      dispatch(setPassportsLoading(false));
     }
   }, []);
 
   // Skeleton loader
   if (isLoading) return <PaymentsSkeleton />;
 
-  // Payments list
-  return <List payments={payments} />;
+  // Passports list
+  return <List passports={passports} />;
 };
 
-export default PaymentsList;
+export default PassportsList;
 
-const List = ({ payments }) => {
+const List = ({ passports }) => {
   const { viewImage } = useImageViewer();
-
   return (
     <ul className="grid grid-cols-6 gap-5 max-h-[calc(100%-64px)] overflow-y-auto p-5">
-      {payments.map(({ _id: id, photo, createdAt, user, amount }) => {
+      {passports.map(({ _id: id, photo, createdAt, user }) => {
         const url = photo.url;
         return (
           <li key={id} className="w-full bg-white p-2.5 rounded-20 border">
@@ -74,8 +75,8 @@ const List = ({ payments }) => {
                 height={256}
                 loading="lazy"
                 src={photo.url}
-                alt="To'lov cheki"
-                onClick={() => viewImage({ url, alt: "To'lov cheki" })}
+                alt="Pasport rasmi"
+                onClick={() => viewImage({ url, alt: "Pasport rasmi" })}
                 className="w-full h-auto aspect-square object-cover bg-neutral-100 rounded-xl"
               />
 
@@ -96,15 +97,9 @@ const List = ({ payments }) => {
               </div>
             </div>
 
-            <div className="flex items-start justify-between">
-              <h3 className="break-words text-lg font-medium">
-                {user.firstName}
-              </h3>
-
-              <span className="inline-block text-lg font-medium text-blue-500">
-                {amount?.toLocaleString()}$
-              </span>
-            </div>
+            <h3 className="break-words text-lg font-medium">
+              {user.firstName}
+            </h3>
           </li>
         );
       })}

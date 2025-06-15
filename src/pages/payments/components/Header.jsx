@@ -1,14 +1,12 @@
-import React from "react";
-
 // Components
-import Icon from "./Icon";
-import Searchbox from "./form/Searchbox";
+import Icon from "../../../components/Icon";
+import Searchbox from "../../../components/form/Searchbox";
 
-const PassportsPageHeader = () => {
+const Header = () => {
   return (
     <header className="w-full h-16 bg-white border-b">
       <div className="flex items-center justify-between size-full px-5">
-        <h1 className="text-2xl font-medium">Pasportlar</h1>
+        <h1 className="text-2xl font-medium">To'lovlar</h1>
 
         {/* Searchbox */}
         <Searchbox />
@@ -32,4 +30,4 @@ const PassportsPageHeader = () => {
   );
 };
 
-export default PassportsPageHeader;
+export default Header;

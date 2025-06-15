@@ -1,14 +1,14 @@
 // Components
+import Body from "@/pages/ticket/components/Body";
+import Header from "@/pages/ticket/components/Header";
 import SendTicketModal from "@/components/SendTicketModal";
-import TicketPageBody from "@/pages/ticket/components/Body";
-import TicketPageHeader from "@/pages/ticket/components/Header";
 
 const Ticket = () => {
   return (
     <>
       <div className="size-full border-l">
-        <TicketPageHeader />
-        <TicketPageBody />
+        <Header />
+        <Body />
       </div>
 
       <SendTicketModal />

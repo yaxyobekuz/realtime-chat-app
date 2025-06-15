@@ -18,11 +18,11 @@ import ChatLayout from "./layouts/ChatLayout";
 // Pages
 import Chat from "./pages/Chat";
 import Home from "./pages/Home";
-import Tickets from "./pages/tickets/Tickets";
 import NotFound from "./pages/NotFound";
-import Payments from "./pages/Payments";
-import Passports from "./pages/Passports";
 import Ticket from "./pages/ticket/Ticket";
+import Tickets from "./pages/tickets/Tickets";
+import Payments from "./pages/payments/Payments";
+import Passports from "./pages/passports/Passports";
 import UserTickets from "./pages/user-tickets/UserTickets";
 
 const App = () => {
