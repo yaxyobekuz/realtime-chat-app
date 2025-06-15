@@ -32,11 +32,15 @@ const ticketService = {
 
   uploadTicketFile: async (ticketId, formData) => {
     try {
-      const res = await api.put(endpoints.uploadTicketFile(ticketId), formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const res = await api.put(
+        endpoints.uploadTicketFile(ticketId),
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       return res;
     } catch (error) {
       return formatErrorMessage(error);
@@ -50,6 +54,10 @@ const ticketService = {
     } catch (error) {
       return formatErrorMessage(error);
     }
+  },
+
+  sendTicketFileToUser: async (ticketId, data) => {
+    return await api.post(endpoints.sendTicketFileToUser(ticketId), data);
   },
 };
 

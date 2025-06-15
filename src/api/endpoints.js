@@ -17,6 +17,7 @@ const endpoints = {
   getUserTickets: (userId) => `/api/tickets/user/${userId}`,
   deleteTicketFile: (fileId) => `/api/tickets/file/${fileId}`,
   uploadTicketFile: (ticketId) => `/api/tickets/upload/${ticketId}`,
+  sendTicketFileToUser: (ticketId) => `/api/tickets/send/${ticketId}`,
 
   // Chats
   getChats: "/api/chats",

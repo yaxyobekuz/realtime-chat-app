@@ -6,6 +6,7 @@ const initialModalData = { isOpen: false, data: null, isLoading: false };
 const initialState = {
   payment: initialModalData,
   passport: initialModalData,
+  sendTicket: initialModalData,
   imageViewer: initialModalData,
   createTicket: initialModalData,
   paymentDetails: initialModalData,
