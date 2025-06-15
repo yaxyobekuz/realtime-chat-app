@@ -33,7 +33,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 // Whistle notification sound for notification 🗿
-import whistleAudio from "../assets/sounds/whistle.mp3";
+import whistleAudio from "../../../assets/sounds/whistle.mp3";
 
 const ChatsList = ({ chatStatus }) => {
   const socket = io(apiBaseUrl);

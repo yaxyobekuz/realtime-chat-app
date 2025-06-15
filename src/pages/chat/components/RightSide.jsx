@@ -16,14 +16,14 @@ import StatusDrawer from "../../../components/StatusDrawer";
 import { formatDate, formatTime } from "../../../utils/helpers";
 
 // Icons
-import filesIcon from "../assets/icons/outline/files.svg";
-import trashIcon from "../assets/icons/outline/trash.svg";
-import ticketIcon from "../assets/icons/outline/ticket.svg";
-import paymentIcon from "../assets/icons/outline/payment.svg";
-import messageIcon from "../assets/icons/outline/message.svg";
-import handIcon from "../assets/icons/outline/hand-raised.svg";
-import pencilIcon from "../assets/icons/outline/pencil-square.svg";
-import phoneIcon from "../assets/icons/outline/phone-arrow-up.svg";
+import filesIcon from "../../../assets/icons/outline/files.svg";
+import trashIcon from "../../../assets/icons/outline/trash.svg";
+import ticketIcon from "../../../assets/icons/outline/ticket.svg";
+import paymentIcon from "../../../assets/icons/outline/payment.svg";
+import messageIcon from "../../../assets/icons/outline/message.svg";
+import handIcon from "../../../assets/icons/outline/hand-raised.svg";
+import pencilIcon from "../../../assets/icons/outline/pencil-square.svg";
+import phoneIcon from "../../../assets/icons/outline/phone-arrow-up.svg";
 
 // Divider line component
 const Divider = () => <div className="w-full h-2 bg-neutral-50" />;

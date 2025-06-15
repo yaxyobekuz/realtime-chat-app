@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
 // Components
-import Icon from "./Icon";
-import Input from "./form/Input";
-import Button from "./form/Button";
+import Icon from "../Icon";
+import Input from "../form/Input";
+import Button from "../form/Button";
 
 // Ui components
 import {
@@ -37,7 +37,7 @@ import passportService from "@/api/services/passportService";
 import { useDispatch } from "react-redux";
 import { addNewTicketToStore } from "@/store/features/ticketsSlice";
 
-const CreateTicketModal = () => {
+const CreateTicket = () => {
   const modal = useModal("createTicket");
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const { close, isOpen, data, isLoading, setLoading } = modal;
@@ -344,4 +344,4 @@ const Payments = ({ userId, onChange }) => {
   );
 };
 
-export default CreateTicketModal;
+export default CreateTicket;

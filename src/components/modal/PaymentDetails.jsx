@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
 
 // Components
-import Button from "./form/Button";
+import Button from "../form/Button";
 
 // UI components
 import {

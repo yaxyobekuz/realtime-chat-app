@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 // Components
-import Input from "./form/Input";
-import Button from "./form/Button";
+import Input from "../form/Input";
+import Button from "../form/Button";
 
 // Ui components
 import {
@@ -29,7 +29,7 @@ import useMediaQuery from "@/hooks/useMediaQuery";
 // Services
 import ticketService from "@/api/services/ticketService";
 
-const SendTicketModal = () => {
+const SendTicket = () => {
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const { close, isOpen, data, isLoading, setLoading } = useModal("sendTicket");
 
@@ -140,4 +140,4 @@ const Body = ({ close, formData, isLoading, setLoading }) => {
   );
 };
 
-export default SendTicketModal;
+export default SendTicket;

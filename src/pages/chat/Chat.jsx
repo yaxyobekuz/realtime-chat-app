@@ -30,7 +30,7 @@ import Footer from "@/pages/chat/components/Footer";
 import RightSide from "@/pages/chat/components/RightSide";
 
 // Modals
-import CreateTicketModal from "@/components/CreateTicketModal";
+import CreateTicketModal from "@/components/modal/CreateTicket";
 
 const Chat = () => {
   const dispatch = useDispatch();

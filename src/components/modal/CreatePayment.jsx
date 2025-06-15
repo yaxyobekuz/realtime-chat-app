@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 // Components
-import Input from "./form/Input";
-import Button from "./form/Button";
+import Input from "../form/Input";
+import Button from "../form/Button";
 
 // Ui components
 import {
@@ -27,19 +27,19 @@ import useModal from "@/hooks/useModal";
 import useMediaQuery from "@/hooks/useMediaQuery";
 
 // Services
-import passportService from "@/api/services/passportService";
+import paymentService from "@/api/services/paymentService";
 
 // Redux (Store)
 import { useDispatch, useSelector } from "react-redux";
 import { updateMessageInStore } from "@/store/features/messagesSlice";
 
-const CreatePassportModal = () => {
+const CreatePayment = () => {
   const isDesktop = useMediaQuery("(min-width: 768px)");
-  const { close, isOpen, data, isLoading, setLoading } = useModal("passport");
+  const { close, isOpen, data, isLoading, setLoading } = useModal("payment");
 
   // Chats
-  const { chatId, messageId, photoId } = data || {};
   const chats = useSelector((state) => state.chats.data);
+  const { chatId, messageId, photoId } = data || {};
 
   // Chat
   const chat = chats.find(({ id }) => id === Number(chatId));
@@ -62,9 +62,9 @@ const CreatePassportModal = () => {
         <DialogContent className="sm:max-w-[425px]">
           {/* Header */}
           <DialogHeader>
-            <DialogTitle>Pasport ma'lumotlarini yaratish</DialogTitle>
+            <DialogTitle>To'lov ma'lumotlarini yaratish</DialogTitle>
             <DialogDescription>
-              Siz ayni damda {firstName} uchun pasport ma'lumotlarini
+              Siz ayni damda {firstName} uchun to'lov ma'lumotlarini
               yaratmoqdasiz.
             </DialogDescription>
           </DialogHeader>
@@ -81,9 +81,9 @@ const CreatePassportModal = () => {
       <DrawerContent>
         {/* Header */}
         <DialogHeader>
-          <DialogTitle>Pasport ma'lumotlarini yaratish</DialogTitle>
+          <DialogTitle>To'lov ma'lumotlarini yaratish</DialogTitle>
           <DialogDescription>
-            Siz ayni damda {firstName} uchun pasport ma'lumotlarini
+            Siz ayni damda {firstName} uchun to'lov ma'lumotlarini
             yaratmoqdasiz.
           </DialogDescription>
         </DialogHeader>
@@ -104,6 +104,7 @@ const CreatePassportModal = () => {
 
 const Body = ({ close, formData, isLoading, setLoading }) => {
   const dispatch = useDispatch();
+  const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
 
   const handleSubmit = (e) => {
@@ -112,31 +113,42 @@ const Body = ({ close, formData, isLoading, setLoading }) => {
 
     close();
     setLoading(true);
-    formData = { ...formData, description };
+    formData = { ...formData, amount, description };
 
     toast.promise(
-      passportService
-        .createPassport(formData)
+      paymentService
+        .createPayment(formData)
         .then(({ data }) => {
           dispatch(
             updateMessageInStore({
               messagesId: data.chatId,
               messageId: data.messageId,
-              data: { passportId: data._id },
+              data: { paymentId: data._id },
             })
           );
         })
         .finally(() => setLoading(false)),
       {
-        error: "Pasport ma'lumotlari yaratilinmadi",
-        success: "Pasport ma'lumotlari yaratilindi",
-        loading: "Pasport ma'lumotlari yaratilmoqda...",
+        error: "To'lov ma'lumotlari yaratilinmadi",
+        success: "To'lov ma'lumotlari yaratilindi",
+        loading: "To'lov ma'lumotlari yaratilmoqda...",
       }
     );
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
+      {/* Amount */}
+      <Input
+        required
+        type="number"
+        variant="gray"
+        label="Qiymat"
+        name="amount-input"
+        placeholder="Qiymatni kiriting"
+        onChange={(e) => setAmount(Number(e.target.value))}
+      />
+
       {/* Description */}
       <Input
         label="Izoh"
@@ -163,4 +175,4 @@ const Body = ({ close, formData, isLoading, setLoading }) => {
   );
 };
 
-export default CreatePassportModal;
+export default CreatePayment;
