@@ -10,10 +10,10 @@ const Header = () => {
         {/* Left side */}
         <div className="flex items-center gap-3.5">
           {/* Back Link */}
-          <BackLink title="To'lovlar" />
+          <BackLink title="Passportlar" />
 
           {/* Title */}
-          <h1 className="text-2xl font-medium">Foydalanuvchi to'lovlari</h1>
+          <h1 className="text-2xl font-medium">Foydalanuvchi passportlari</h1>
         </div>
 
         {/* Searchbox */}

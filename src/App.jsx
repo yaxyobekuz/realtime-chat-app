@@ -25,6 +25,7 @@ import Payments from "./pages/payments/Payments";
 import Passports from "./pages/passports/Passports";
 import UserTickets from "./pages/user-tickets/UserTickets";
 import UserPayments from "./pages/user-payments/UserPayments";
+import UserPassports from "./pages/user-passports/UserPassports";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -41,17 +42,18 @@ const App = () => {
           <Route path="chat/:chatId" element={<Chat />} />
         </Route>
 
-        {/* Passports */}
-        <Route path="passports" element={<Passports />} />
+        {/* Tickets */}
+        <Route path="tickets" element={<Tickets />} />
+        <Route path="tickets/ticket/:ticketId" element={<Ticket />} />
+        <Route path="tickets/user/:userId" element={<UserTickets />} />
 
         {/* Payments */}
         <Route path="payments" element={<Payments />} />
         <Route path="payments/user/:userId" element={<UserPayments />} />
 
-        {/* Tickets */}
-        <Route path="tickets" element={<Tickets />} />
-        <Route path="tickets/ticket/:ticketId" element={<Ticket />} />
-        <Route path="tickets/user/:userId" element={<UserTickets />} />
+        {/* Passports */}
+        <Route path="passports" element={<Passports />} />
+        <Route path="passports/user/:userId" element={<UserPassports />} />
       </Route>
     ),
     { future: { v7_relativeSplatPath: true } }
