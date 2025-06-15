@@ -1,17 +1,17 @@
 // Components
-import Icon from "./Icon";
+import Icon from "../../../../components/Icon";
 
 // Helpers
 import {
   formatTime,
   formatFileSize,
   getBubbleBorderRadius,
-} from "../utils/helpers";
+} from "../../../../utils/helpers";
 
 // Icons
 import fileIcon from "../assets/icons/mini/file-text-white.svg";
 
-const FileMessageItem = ({
+const File = ({
   file,
   _id: id,
   isAdmin,
@@ -92,4 +92,4 @@ const FileLink = ({ url }) => (
   </a>
 );
 
-export default FileMessageItem;
+export default File;

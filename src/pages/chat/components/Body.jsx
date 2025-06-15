@@ -5,9 +5,9 @@ import { useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 // Components
-import TextMessageItem from "../../../components/TextMessageItem";
-import FileMessageItem from "../../../components/FileMessageItem";
-import PhotoMessageItem from "../../../components/PhotoMessageItem";
+import TextMessageItem from "./message-item/Text";
+import FileMessageItem from "./message-item/File";
+import PhotoMessageItem from "./message-item/Photo";
 
 const className = `max-h-[calc(100%-128px)] size-full overflow-y-auto hidden-scroll scroll-smooth scroll-pt-2 py-4`;
 

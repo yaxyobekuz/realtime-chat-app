@@ -1,6 +1,6 @@
-import { formatTime, getBubbleBorderRadius } from "../utils/helpers";
+import { formatTime, getBubbleBorderRadius } from "../../../../utils/helpers";
 
-const TextMessageItem = ({
+const Text = ({
   text,
   isAdmin,
   createdAt,
@@ -46,4 +46,4 @@ const TextMessageItem = ({
   );
 };
 
-export default TextMessageItem;
+export default Text;

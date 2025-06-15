@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 
 // Components
-import Icon from "./Icon";
+import Icon from "../../../../components/Icon";
 
 // Hooks
 import useModal from "@/hooks/useModal";
@@ -12,9 +12,9 @@ import filesIcon from "../assets/icons/mini/files.svg";
 import paymentIcon from "../assets/icons/mini/payment.svg";
 
 // Helpers
-import { formatTime, getBubbleBorderRadius } from "../utils/helpers";
+import { formatTime, getBubbleBorderRadius } from "../../../../utils/helpers";
 
-const PhotoMessageItem = ({
+const Photo = ({
   photo,
   _id: id,
   isAdmin,
@@ -121,4 +121,4 @@ const PhotoMessageItem = ({
   );
 };
 
-export default PhotoMessageItem;
+export default Photo;
