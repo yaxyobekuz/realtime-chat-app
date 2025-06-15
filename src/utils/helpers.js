@@ -76,9 +76,32 @@ const extractNumbers = (text = "") => {
   return text?.replace(/\D/g, "");
 };
 
+const formatFileSize = (sizeInBytes) => {
+  // Handle zero or invalid input
+  if (!sizeInBytes || sizeInBytes === 0) return "0 B";
+
+  const units = ["B", "KB", "MB", "GB", "TB"];
+  const bytesInUnit = 1024;
+
+  // Find appropriate unit
+  let unitIndex = 0;
+  let size = sizeInBytes;
+
+  while (size >= bytesInUnit && unitIndex < units.length - 1) {
+    size /= bytesInUnit;
+    unitIndex++;
+  }
+
+  // Format with appropriate decimal places
+  const formattedSize = unitIndex === 0 ? size.toString() : size.toFixed(1);
+
+  return `${formattedSize} ${units[unitIndex]}`;
+};
+
 export {
   formatTime,
   formatDate,
+  formatFileSize,
   extractNumbers,
   formatErrorMessage,
   getBubbleBorderRadius,
