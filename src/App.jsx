@@ -18,12 +18,12 @@ import ChatLayout from "./layouts/ChatLayout";
 // Pages
 import Chat from "./pages/Chat";
 import Home from "./pages/Home";
-import Tickets from "./pages/Tickets";
+import Tickets from "./pages/tickets/Tickets";
 import NotFound from "./pages/NotFound";
 import Payments from "./pages/Payments";
 import Passports from "./pages/Passports";
-import UserTickets from "./pages/UserTickets";
-import Ticket from "./pages/Ticket";
+import Ticket from "./pages/ticket/Ticket";
+import UserTickets from "./pages/user-tickets/UserTickets";
 
 const App = () => {
   const router = createBrowserRouter(

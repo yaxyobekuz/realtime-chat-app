@@ -14,15 +14,15 @@ import ticketStatuses from "@/data/ticketStatuses";
 import useModal from "@/hooks/useModal";
 import useImageViewer from "@/hooks/useImageViewer";
 
-// Components
-import UserPhoto from "./UserPhoto";
-import TicketSkeleton from "./skeleton/Ticket";
-import TicketFileUploader from "./TicketFileUploader";
-
 // Services
 import ticketService from "@/api/services/ticketService";
 
-const TicketPageBody = () => {
+// Components
+import TicketFileUploader from "./FileUploader";
+import UserPhoto from "../../../components/UserPhoto";
+import TicketSkeleton from "../../../components/skeleton/Ticket";
+
+const Body = () => {
   const { ticketId } = useParams();
   const { viewImage } = useImageViewer();
   const [ticket, setTicket] = useState(null);
@@ -199,4 +199,4 @@ const TicketPageBody = () => {
   );
 };
 
-export default TicketPageBody;
+export default Body;

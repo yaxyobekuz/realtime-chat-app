@@ -1,20 +1,20 @@
 import { useState, useEffect } from "react";
 
-// Components
-import Icon from "./Icon";
-
 // Toast (Notification)
 import toast from "react-hot-toast";
 
+// Components
+import Icon from "../../../components/Icon";
+
 // Services
-import ticketService from "../api/services/ticketService";
+import ticketService from "../../../api/services/ticketService";
 
 // Icons
-import plusIcon from "../assets/icons/outline/plus.svg";
-import trashIcon from "../assets/icons/outline/trash.svg";
-import filePlusIcon from "../assets/icons/outline/file-plus.svg";
+import plusIcon from "../../../assets/icons/outline/plus.svg";
+import trashIcon from "../../../assets/icons/outline/trash.svg";
+import filePlusIcon from "../../../assets/icons/outline/file-plus.svg";
 
-const TicketFileUploader = ({ ticketId, onFileUploaded, file }) => {
+const FileUploader = ({ ticketId, onFileUploaded, file }) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [filePreview, setFilePreview] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -299,4 +299,4 @@ const TicketFileUploader = ({ ticketId, onFileUploaded, file }) => {
   }
 };
 
-export default TicketFileUploader;
+export default FileUploader;

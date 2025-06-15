@@ -8,7 +8,7 @@ import { toast } from "@/notification/toast";
 import { formatDate } from "@/utils/helpers";
 
 // Components
-import TableSkeleton from "./skeleton/Table";
+import TableSkeleton from "../../../components/skeleton/Table";
 
 // Ticket statuses
 import ticketStatuses from "@/data/ticketStatuses";
@@ -16,7 +16,7 @@ import ticketStatuses from "@/data/ticketStatuses";
 // Services
 import ticketService from "@/api/services/ticketService";
 
-const UserTicketsList = () => {
+const TicketsList = () => {
   const { userId } = useParams();
   const [tickets, setTickets] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -154,4 +154,4 @@ const List = ({ tickets }) => {
   );
 };
 
-export default UserTicketsList;
+export default TicketsList;

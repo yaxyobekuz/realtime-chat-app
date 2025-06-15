@@ -1,5 +1,6 @@
-import UserTicketsList from "@/components/UserTicketsList";
-import UserTicketPageHeader from "@/components/UserTicketPageHeader";
+// Components
+import UserTicketsList from "@/pages/user-tickets/components/TicketsList";
+import UserTicketPageHeader from "@/pages/user-tickets/components/Header";
 
 const UserTickets = () => {
   return (

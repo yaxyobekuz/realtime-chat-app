@@ -1,5 +1,6 @@
-import TicketsList from "@/components/TicketsList";
-import TicketsPageHeader from "@/components/TicketsPageHeader";
+// Componetns
+import TicketsList from "@/pages/tickets/components/TicketsList";
+import TicketsPageHeader from "@/pages/tickets/components/Header";
 
 const Tickets = () => {
   return (

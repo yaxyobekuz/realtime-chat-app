@@ -7,9 +7,6 @@ import { toast } from "@/notification/toast";
 // Helpers
 import { formatDate } from "@/utils/helpers";
 
-// Components
-import TableSkeleton from "./skeleton/Table";
-
 // Ticket statuses
 import ticketStatuses from "@/data/ticketStatuses";
 
@@ -22,6 +19,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 // Services
 import ticketService from "@/api/services/ticketService";
+
+// Components
+import TableSkeleton from "../../../components/skeleton/Table";
 
 const TicketsList = () => {
   const dispatch = useDispatch();

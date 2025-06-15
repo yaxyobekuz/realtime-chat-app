@@ -1,10 +1,10 @@
 import React from "react";
 
 // Components
-import Icon from "./Icon";
-import BackLink from "./BackLink";
+import Icon from "../../../components/Icon";
+import BackLink from "../../../components/BackLink";
 
-const UserTicketPageHeader = () => {
+const Header = () => {
   return (
     <header className="w-full h-16 bg-white border-b">
       <div className="flex items-center justify-between size-full px-5">
@@ -36,4 +36,4 @@ const UserTicketPageHeader = () => {
   );
 };
 
-export default UserTicketPageHeader;
+export default Header;

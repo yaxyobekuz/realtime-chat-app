@@ -1,7 +1,7 @@
 // Components
-import TicketPageBody from "@/components/TicketPageBody";
 import SendTicketModal from "@/components/SendTicketModal";
-import TicketPageHeader from "@/components/TicketPageHeader";
+import TicketPageBody from "@/pages/ticket/components/Body";
+import TicketPageHeader from "@/pages/ticket/components/Header";
 
 const Ticket = () => {
   return (

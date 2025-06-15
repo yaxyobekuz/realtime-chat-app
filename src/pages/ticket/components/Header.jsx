@@ -1,17 +1,19 @@
-import React from "react";
-
 // Components
-import Icon from "./Icon";
-import Searchbox from "./form/Searchbox";
+import Icon from "../../../components/Icon";
+import BackLink from "../../../components/BackLink";
 
-const TicketsPageHeader = () => {
+const Header = () => {
   return (
     <header className="w-full h-16 bg-white border-b">
       <div className="flex items-center justify-between size-full px-5">
-        <h1 className="text-2xl font-medium">Chiptalar</h1>
+        {/* Left side */}
+        <div className="flex items-center gap-3.5">
+          {/* Back Link */}
+          <BackLink title="Chiptalar" />
 
-        {/* Searchbox */}
-        <Searchbox />
+          {/* Title */}
+          <h1 className="text-2xl font-medium">Chipta</h1>
+        </div>
 
         {/* Profile */}
         <div className="flex items-center gap-3.5">
@@ -32,4 +34,4 @@ const TicketsPageHeader = () => {
   );
 };
 
-export default TicketsPageHeader;
+export default Header;
